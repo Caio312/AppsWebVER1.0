@@ -302,6 +302,89 @@ img,canvas{max-width:100%;}
 .pdf-only{display:none;}
 
 /* =========================================================
+   BOTÃO VOLTAR
+   ========================================================= */
+.back-btn{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:600;letter-spacing:.06em;color:rgba(255,255,255,.4);text-decoration:none;padding:3px 0;margin-bottom:6px;transition:color .15s;}
+.back-btn:hover{color:var(--gold);}
+.back-btn svg{width:12px;height:12px;stroke:currentColor;fill:none;}
+
+/* =========================================================
+   MOBILE — Melhorias para dispositivos touch
+   ========================================================= */
+
+/* Norma bar: rolagem horizontal em vez de quebrar linha */
+@media(max-width:768px){
+  .norma-bar{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;gap:12px;}
+  .norma-bar::-webkit-scrollbar{display:none;}
+  .norma-badge{white-space:nowrap;flex-shrink:0;}
+}
+
+/* Tipologia bar: rolagem horizontal em mobile */
+@media(max-width:768px){
+  .tipologia-bar{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+  .tipologia-bar::-webkit-scrollbar{display:none;}
+  .tipologia-btn{flex-shrink:0;}
+  .tipologia-label{flex-shrink:0;}
+}
+
+/* Header: empilha verticalmente em telas pequenas */
+@media(max-width:640px){
+  .header{flex-direction:column;align-items:stretch;gap:0;padding-bottom:12px;}
+  .header-left{padding-bottom:10px;}
+  .header-right{
+    border-left:none;
+    border-top:1px solid rgba(255,255,255,.1);
+    margin-left:0;
+    padding:12px 0 0 0;
+    justify-content:flex-start;
+  }
+  .header-fields{flex-direction:column;}
+  .header-field{width:100%;}
+  .header-input{font-size:16px;} /* previne zoom no iOS */
+}
+
+/* Inputs com target de toque adequado (mínimo 44px) em mobile */
+@media(max-width:640px){
+  .field input,.field select{
+    height:44px;
+    font-size:16px; /* previne zoom automático no iOS */
+  }
+  .pav-inp{height:38px;font-size:15px;}
+  .btn{padding:12px 18px;font-size:13px;min-height:44px;}
+  .btn-sm{padding:10px 14px;font-size:12px;min-height:40px;}
+  .tipologia-btn{padding:8px 14px;font-size:12px;min-height:40px;}
+  .add-row-btn{padding:10px 16px;font-size:12px;min-height:40px;}
+}
+
+/* Ajuste de grids de métricas em telas muito pequenas */
+@media(max-width:420px){
+  .m2,.m3,.m4,.m5{grid-template-columns:1fr!important;}
+  .kpi-row{grid-template-columns:1fr 1fr!important;}
+  .mrow.m2{grid-template-columns:1fr 1fr;}
+}
+
+/* Ajuste da tabela de áreas em mobile */
+@media(max-width:600px){
+  .tbl{min-width:480px;}
+  .fc-table-container{max-height:50vh;}
+}
+
+/* Cenários: 1 coluna em mobile */
+@media(max-width:600px){
+  .scenario-grid{grid-template-columns:1fr!important;}
+}
+
+/* Grid de assinaturas: 1 coluna em mobile */
+@media(max-width:480px){
+  .sig-grid{grid-template-columns:1fr!important;}
+}
+
+/* Preço da unidade (número grande) — ajuste em mobile */
+@media(max-width:480px){
+  #s-preco-apt{font-size:clamp(22px,6vw,32px)!important;}
+}
+
+/* =========================================================
    ██████  PRINT / PDF  ██████
    Estrutura organizada por seção, sem quebras indesejadas
    ========================================================= */
@@ -519,6 +602,7 @@ img,canvas{max-width:100%;}
 <!-- ===== HEADER ===== -->
 <div class="header no-print">
   <div class="header-left">
+    <a class="back-btn" href="../index.html"><svg viewBox="0 0 12 12" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2L4 6l4 4"/></svg>AppsWeb</a>
     <div class="header-eyebrow">Sistema de Viabilidade Imobiliária PRO</div>
     <div class="header-subline">Motor financeiro paramétrico · TIR · VPL · Cenários · Cronograma · ABNT NBR 12.721:2006 · CUB Sinduscon · FipeZAP · SINAPI</div>
     <div class="header-fields">
