@@ -183,18 +183,13 @@ p { color: var(--txt-sec); line-height: 1.7; font-size: .9rem; font-weight: 300;
   object-fit: contain;
   display: block;
 }
-/* Nav: altura igual à nav-bar para caber sem apertar */
 .logo-box--nav {
-  width: 54px;
-  height: 54px;
+  width: 36px;
+  height: 36px;
 }
-/* Footer: maior para ser legível ao lado do nome */
 .logo-box--footer {
-  width: 72px;
-  height: 72px;
-}
-@media (max-width: 680px) {
-  .logo-box--nav  { width: 46px; height: 46px; }
+  width: 40px;
+  height: 40px;
 }
 .nav-name {
   font-size: .82rem;
