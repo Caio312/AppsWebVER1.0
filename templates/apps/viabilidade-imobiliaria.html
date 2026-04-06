@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Viabilidade Imobiliária PRO — CUB/Sinduscon</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='apps/css/viabilidade.css') }}">
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<div class="header no-print">
+  <div class="header-left">
+    <a class="back-btn" href="/"><svg viewBox="0 0 12 12" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2L4 6l4 4"/></svg>AppsWeb</a>
+    <div class="header-eyebrow">Sistema de Viabilidade Imobiliária PRO</div>
+    <div class="header-subline">Motor financeiro paramétrico · TIR · VPL · Cenários · Cronograma · ABNT NBR 12.721:2006 · CUB Sinduscon · FipeZAP · SINAPI</div>
+    <div class="header-fields">
+      <div class="header-field">
+        <label>Cliente / Responsável</label>
+        <input class="header-input" id="h-cliente" type="text" placeholder="Nome do cliente" oninput="render()">
+      </div>
+      <div class="header-field">
+        <label>Empreendimento</label>
+        <input class="header-input" id="h-obra" type="text" placeholder="Nome da obra" oninput="render()">
+      </div>
+      <div class="header-field">
+        <label>Local</label>
+        <input class="header-input small" id="h-local" type="text" placeholder="Cidade — UF" oninput="render()">
+      </div>
+    </div>
+  </div>
+  <div class="header-right">
+    <button class="btn btn-outline btn-sm" onclick="resetarTipologia()">↺ Limpar</button>
+    <button class="btn btn-gold" onclick="window.print()">
+      <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2M6 14h12v8H6z"/></svg>
+      Imprimir PDF
+    </button>
+  </div>
+</div>
+
+<!-- NORMA BAR -->
+<div class="norma-bar no-print">
+  <span class="norma-badge">📐 <strong>ABNT NBR 12.721:2006</strong></span>
+  <span class="norma-badge">📊 <strong>CUB Fev/2026 Sinduscon-MA</strong> — PP-4 Normal: R$2.096,27 · R-8 Normal: R$1.866,08</span>
+  <span class="norma-badge">🏙️ <strong>FipeZAP Dez/2025</strong> — São Luís: R$8.617/m²</span>
+  <span class="norma-badge">🔨 <strong>SINAPI Fev/2026</strong> — Nacional: R$1.925,08/m²</span>
+</div>
+
+<!-- TIPOLOGIA BAR -->
+<div class="tipologia-bar no-print">
+  <span class="tipologia-label">Tipologia:</span>
+  <button class="tipologia-btn active" id="tip-btn-condhoriz" onclick="carregarTipologia('condhoriz')">🏘️ Cond. Horizontal </button>
+  <button class="tipologia-btn" id="tip-btn-vertical" onclick="carregarTipologia('vertical')">🏢 Edifício Residencial</button>
+  <button class="tipologia-btn" id="tip-btn-mcmv" onclick="carregarTipologia('mcmv')">🏠 MCMV / HIS</button>
+  <button class="tipologia-btn" id="tip-btn-comercial" onclick="carregarTipologia('comercial')">🏬 Comercial / Sala</button>
+  <button class="tipologia-btn" id="tip-btn-custom" onclick="carregarTipologia('custom')">⚙️ Personalizado</button>
+</div>
+
+<!-- TABS -->
+<div class="tab-bar no-print">
+  <button class="tab-btn active" onclick="showTab('tab-entrada')">① Dados de Entrada</button>
+  <button class="tab-btn" onclick="showTab('tab-resultado')">② Resultado &amp; Viabilidade</button>
+  <button class="tab-btn" onclick="showTab('tab-cenarios')">③ Análise de Cenários</button>
+  <button class="tab-btn" onclick="showTab('tab-fluxo')">④ Fluxo de Caixa / TIR / VPL</button>
+  <button class="tab-btn" onclick="showTab('tab-sensib')">⑤ Sensibilidade</button>
+  <button class="tab-btn" onclick="showTab('tab-sig')">⑥ Dados do Relatório</button>
+</div>
+
+<!-- ============================= TAB 1 — ENTRADA ============================= -->
+<div class="tab-panel active" id="tab-entrada">
+<div class="main">
+
+  <!-- ETAPA 1 -->
+  <div class="card" style="margin-bottom:18px;">
+    <div class="card-tag"><span class="step-dot">1</span>Etapa 1 — Composição de Áreas</div>
+    <div class="card-title">Levantamento de Áreas (ABNT NBR 12.721:2006)</div>
+    <div class="tbl-wrap">
+    <table class="tbl" id="pav-table">
+      <thead><tr>
+        <th>Tipo de Área</th>
+        <th class="r" style="width:60px">Qtd</th>
+        <th class="r" style="width:110px">Área Unit. (m²)</th>
+        <th class="r" style="width:120px">Área Total (m²)</th>
+        <th class="r" style="width:100px">Coef. Equiv.</th>
+        <th class="r" style="width:120px">Área Equiv. (m²)</th>
+        <th class="r" style="width:60px">%</th>
+        <th style="width:30px"></th>
+      </tr></thead>
+      <tbody id="pav-tbody"></tbody>
+      <tfoot>
+        <tr>
+          <td><strong>TOTAL</strong></td>
+          <td></td>
+          <td class="r" id="ft-area-bruta">—</td>
+          <td class="r" id="ft-area-total">—</td>
+          <td></td>
+          <td class="r" id="ft-area-equiv">—</td>
+          <td class="r">100%</td>
+          <td></td>
+        </tr>
+      </tfoot>
+    </table>
+    </div>
+    <button class="add-row-btn" onclick="addPavRow()">＋ Adicionar tipo de área</button>
+    <div class="div"></div>
+    <!-- CUB -->
+    <div class="card-tag" style="margin-bottom:8px;">CUB — Custo Unitário Básico · Sinduscon-MA · Fev/2026</div>
+    <div class="cub-grid" id="cub-grid">
+      <div class="cub-opt sel" data-val="2096.27" onclick="selCUB(this)"><div class="cub-opt-lbl">PP-4 · Normal</div><div class="cub-opt-val">R$2.096,27</div><div class="cub-opt-sub">≤4 pav. (recomendado)</div></div>
+      <div class="cub-opt" data-val="1866.08" onclick="selCUB(this)"><div class="cub-opt-lbl">R-8 · Normal</div><div class="cub-opt-val">R$1.866,08</div><div class="cub-opt-sub">Residencial 8 pav.</div></div>
+      <div class="cub-opt" data-val="1745.63" onclick="selCUB(this)"><div class="cub-opt-lbl">PP-4 · Baixo</div><div class="cub-opt-val">R$1.745,63</div><div class="cub-opt-sub">Econômico ≤4 pav.</div></div>
+      <div class="cub-opt" data-val="2379.35" onclick="selCUB(this)"><div class="cub-opt-lbl">R-16 · Alto</div><div class="cub-opt-val">R$2.379,35</div><div class="cub-opt-sub">Residencial alto 16 pav.</div></div>
+      <div class="cub-opt" data-val="1915.89" onclick="selCUB(this)"><div class="cub-opt-lbl">RP1Q · Popular</div><div class="cub-opt-val">R$1.915,89</div><div class="cub-opt-sub">Habitação popular</div></div>
+      <div class="cub-opt" data-val="2182.58" onclick="selCUB(this)"><div class="cub-opt-lbl">CAL-8 · Normal</div><div class="cub-opt-val">R$2.182,58</div><div class="cub-opt-sub">Comercial andares livres</div></div>
+      <div class="cub-opt" data-val="1866.82" onclick="selCUB(this)"><div class="cub-opt-lbl">CSL-8 · Normal</div><div class="cub-opt-val">R$1.866,82</div><div class="cub-opt-sub">Com. salas e lojas 8 pav.</div></div>
+      <div class="cub-opt" data-val="1925.08" onclick="selCUB(this)"><div class="cub-opt-lbl">SINAPI · Nacional</div><div class="cub-opt-val">R$1.925,08</div><div class="cub-opt-sub">IBGE/CEF Fev/2026</div></div>
+    </div>
+    <div class="fgrid fg4" style="margin-bottom:14px;">
+      <div class="field">
+        <label>CUB adotado (R$/m²)</label>
+        <input type="number" id="cub" value="2096.27" min="1" step="0.01" oninput="render()">
+        <div class="field-note">Referência: Sinduscon-MA Fev/2026 · ABNT NBR 12.721:2006</div>
+      </div>
+      <div class="field">
+        <label>Nº de unidades vendáveis</label>
+        <input type="number" id="qtd-apts" value="14" min="1" oninput="render()">
+      </div>
+      <div class="field">
+        <label>Área média por unidade (m²)</label>
+        <input type="number" id="area-apt" value="120" min="1" oninput="render()">
+      </div>
+      <div class="field">
+        <label>Preço de mercado/m² (R$)</label>
+        <input type="number" id="preco-mercado" value="8617" min="1" oninput="render()">
+        <div class="field-note">FipeZAP Dez/2025 — São Luís: R$8.617/m²</div>
+      </div>
+    </div>
+    <div class="mrow m4">
+      <div class="metric"><div class="metric-lbl">Área bruta total</div><div class="metric-val sm" id="r-area-bruta">—</div></div>
+      <div class="metric"><div class="metric-lbl">Área total construída</div><div class="metric-val sm" id="r-area-total">—</div></div>
+      <div class="metric"><div class="metric-lbl">Área equivalente</div><div class="metric-val sm" id="r-area-equiv">—</div></div>
+      <div class="metric hi"><div class="metric-lbl">Área vendável total</div><div class="metric-val sm gold" id="r-area-vend">—</div></div>
+    </div>
+  </div>
+
+  <!-- ETAPA 2 -->
+  <div class="grid g2">
+    <div class="card">
+      <div class="card-tag"><span class="step-dot">2</span>Etapa 2 — Custos Indiretos (%)</div>
+      <div class="card-title">Encargos &amp; Despesas sobre Custo Direto</div>
+      <div class="fgrid fg2" id="indiretos-grid"></div>
+      <div class="div"></div>
+      <div class="field">
+        <label>Custo do terreno (R$)</label>
+        <input type="number" id="terreno" value="1500000" min="0" oninput="render()">
+      </div>
+      <div class="div"></div>
+      <div class="mrow m2">
+        <div class="metric"><div class="metric-lbl">Total indiretos</div><div class="metric-val sm" id="r-pct-ind">—</div></div>
+        <div class="metric"><div class="metric-lbl">Custo de construção</div><div class="metric-val sm green" id="r-custo-constr">—</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-tag">Distribuição de Áreas</div>
+      <div class="card-title">Composição do Empreendimento</div>
+      <div class="pie-wrap">
+        <canvas id="pie-chart" width="160" height="160"></canvas>
+        <div id="chart-legend" class="pie-legend"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ETAPA 3 -->
+  <div class="card" style="margin-bottom:0;">
+    <div class="card-tag"><span class="step-dot">3</span>Etapa 3 — Impostos, Corretagem e Lucro (%)</div>
+    <div class="card-title">Tributação &amp; Margem (método "por dentro" — precificação sobre o VGV)</div>
+    <div class="fgrid fg5" id="impostos-grid"></div>
+    <div class="div"></div>
+    <div class="mrow m3">
+      <div class="metric"><div class="metric-lbl">Total impostos</div><div class="metric-val sm" id="r-pct-imp">—</div></div>
+      <div class="metric"><div class="metric-lbl">Corretagem</div><div class="metric-val sm" id="r-pct-cor">—</div></div>
+      <div class="metric hi"><div class="metric-lbl">Total deduções</div><div class="metric-val sm gold" id="r-pct-ded">—</div></div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ============================= TAB 2 — RESULTADO ============================= -->
+<div class="tab-panel" id="tab-resultado">
+<div class="main">
+  <div class="grid g2" style="margin-bottom:18px;">
+    <div class="card">
+      <div class="card-tag">Resumo Financeiro</div>
+      <div class="card-title">Composição do VGV</div>
+      <div class="rlines">
+        <div class="rline"><span class="lbl">Custo direto de construção</span><span class="val" id="s-constr">—</span></div>
+        <div class="rline indent"><span class="lbl">↳ Área equiv. × CUB</span><span class="val" id="s-constr-det">—</span></div>
+        <div class="rline"><span class="lbl">Custos indiretos</span><span class="val" id="s-indiretos">—</span></div>
+        <div class="rline"><span class="lbl">Custo do terreno</span><span class="val" id="s-terreno">—</span></div>
+        <div class="rline strong"><span class="lbl">Custo total do empreendimento</span><span class="val" id="s-custo-total">—</span></div>
+        <div class="rline indent"><span class="lbl">↳ Custo por m² vendável</span><span class="val" id="s-custo-m2-det">—</span></div>
+        <div style="height:4px"></div>
+        <div class="rline"><span class="lbl">Impostos sobre vendas</span><span class="val" id="s-impostos">—</span></div>
+        <div class="rline"><span class="lbl">Comissão de corretagem</span><span class="val" id="s-comissao">—</span></div>
+        <div class="rline"><span class="lbl">Margem de lucro</span><span class="val" id="s-lucro">—</span></div>
+        <div class="rline final"><span class="lbl">VGV — Valor Geral de Vendas</span><span class="val" id="s-preco-final">—</span></div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:18px;">
+      <!-- Big card -->
+      <div class="card accent-card">
+        <div class="card-tag">Preço por unidade</div>
+        <div style="font-family:'DM Serif Display',serif;font-size:32px;color:white;margin-bottom:3px;" id="s-preco-apt">—</div>
+        <div style="font-size:12px;color:rgba(255,255,255,.5);margin-bottom:18px;" id="s-preco-apt-sub">—</div>
+        <div class="mrow m2">
+          <div style="background:rgba(255,255,255,.08);border-radius:var(--radius-sm);padding:10px 12px;">
+            <div style="font-size:9px;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.1em;margin-bottom:3px;">Custo/m² total</div>
+            <div style="font-size:14px;font-weight:700;color:white;" id="s-custo-m2">—</div>
+          </div>
+          <div style="background:rgba(255,255,255,.08);border-radius:var(--radius-sm);padding:10px 12px;">
+            <div style="font-size:9px;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.1em;margin-bottom:3px;">Venda/m² (calc.)</div>
+            <div style="font-size:14px;font-weight:700;color:white;" id="s-venda-m2">—</div>
+          </div>
+          <div style="background:rgba(255,255,255,.08);border-radius:var(--radius-sm);padding:10px 12px;">
+            <div style="font-size:9px;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.1em;margin-bottom:3px;">Mercado/m² (FipeZAP)</div>
+            <div style="font-size:14px;font-weight:700;color:white;" id="s-mercado-m2">—</div>
+          </div>
+          <div style="background:rgba(255,255,255,.08);border-radius:var(--radius-sm);padding:10px 12px;">
+            <div style="font-size:9px;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.1em;margin-bottom:3px;">Lucro total previsto</div>
+            <div style="font-size:14px;font-weight:700;color:white;" id="s-lucro2">—</div>
+          </div>
+        </div>
+      </div>
+      <!-- Indicator -->
+      <div class="card">
+        <div class="card-tag">Indicador de Viabilidade</div>
+        <div class="mrow m3" style="margin-bottom:10px;">
+          <div class="metric"><div class="metric-lbl">Custo/m²</div><div class="metric-val sm" id="v-custo-m2">—</div></div>
+          <div class="metric"><div class="metric-lbl">Venda/m²</div><div class="metric-val sm" id="v-venda-m2">—</div></div>
+          <div class="metric"><div class="metric-lbl">Margem/m²</div><div class="metric-val sm" id="v-margem-m2">—</div></div>
+        </div>
+        <div class="viavel" id="viavel-strip">
+          <span class="vlbl" id="viavel-text">—</span>
+          <span class="vval" id="viavel-val">—</span>
+        </div>
+        <div class="mkt-box" id="mkt-box">—</div>
+      </div>
+    </div>
+  </div>
+  <!-- KPIs -->
+  <div class="card">
+    <div class="card-tag">Indicadores Financeiros Consolidados</div>
+    <div class="card-title">Resumo Executivo</div>
+    <div class="mrow m5">
+      <div class="metric hi"><div class="metric-lbl">VGV</div><div class="metric-val green" id="kpi-vgv">—</div><div class="metric-sub">Valor Geral de Vendas</div></div>
+      <div class="metric"><div class="metric-lbl">Custo Total</div><div class="metric-val" id="kpi-custo">—</div><div class="metric-sub">Constr.+Indir.+Terreno</div></div>
+      <div class="metric"><div class="metric-lbl">Lucro bruto</div><div class="metric-val gold" id="kpi-lucro">—</div><div class="metric-sub">Sobre VGV</div></div>
+      <div class="metric"><div class="metric-lbl">Margem líquida</div><div class="metric-val" id="kpi-margem-pct">—</div><div class="metric-sub">Lucro / Custo total</div></div>
+      <div class="metric"><div class="metric-lbl">ROI (Retorno)</div><div class="metric-val" id="kpi-roi">—</div><div class="metric-sub">Lucro / Investimento</div></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ============================= TAB 3 — CENÁRIOS ============================= -->
+<div class="tab-panel" id="tab-cenarios">
+<div class="main">
+  <div class="card" style="margin-bottom:18px;">
+    <div class="card-tag">Parâmetros de Cenário</div>
+    <div class="card-title">Definir variações para análise de risco</div>
+    <div class="fgrid fg3">
+      <div class="field"><label>CUB Otimista (redução %)</label><input type="number" id="sc-cub-ot" value="-8" step="0.5" oninput="renderScenarios()"><div class="field-note warn">Ex: -8% = CUB 8% menor</div></div>
+      <div class="field"><label>CUB Realista (base)</label><input type="number" id="sc-cub-re" value="0" step="0.5" oninput="renderScenarios()"><div class="field-note">0 = usa o CUB digitado na Etapa 1</div></div>
+      <div class="field"><label>CUB Pessimista (aumento %)</label><input type="number" id="sc-cub-pe" value="10" step="0.5" oninput="renderScenarios()"><div class="field-note warn">Ex: +10% = CUB 10% maior</div></div>
+      <div class="field"><label>Venda Otimista (aumento %)</label><input type="number" id="sc-venda-ot" value="5" step="0.5" oninput="renderScenarios()"></div>
+      <div class="field"><label>Venda Realista (base)</label><input type="number" id="sc-venda-re" value="0" step="0.5" oninput="renderScenarios()"></div>
+      <div class="field"><label>Venda Pessimista (redução %)</label><input type="number" id="sc-venda-pe" value="-10" step="0.5" oninput="renderScenarios()"></div>
+      <div class="field"><label>Terreno Otimista (redução %)</label><input type="number" id="sc-ter-ot" value="-5" step="0.5" oninput="renderScenarios()"></div>
+      <div class="field"><label>Terreno Realista (base)</label><input type="number" id="sc-ter-re" value="0" step="0.5" oninput="renderScenarios()"></div>
+      <div class="field"><label>Terreno Pessimista (aumento %)</label><input type="number" id="sc-ter-pe" value="15" step="0.5" oninput="renderScenarios()"></div>
+    </div>
+  </div>
+  <div class="scenario-grid" id="sc-cards">
+    <div class="sc-card opt"><div class="sc-title">⬆ Cenário Otimista</div><div id="sc-opt-body">—</div></div>
+    <div class="sc-card real"><div class="sc-title">◆ Cenário Realista (Base)</div><div id="sc-re-body">—</div></div>
+    <div class="sc-card pess"><div class="sc-title">⬇ Cenário Pessimista</div><div id="sc-pe-body">—</div></div>
+  </div>
+</div>
+</div>
+
+<!-- ============================= TAB 4 — FLUXO ============================= -->
+<div class="tab-panel" id="tab-fluxo">
+<div class="main">
+  <div class="card" style="margin-bottom:18px;">
+    <div class="card-tag">Parâmetros do Cronograma Físico-Financeiro</div>
+    <div class="card-title">Distribuição temporal do investimento e das vendas</div>
+    <div class="fgrid fg4">
+      <div class="field"><label>Prazo de obra (meses)</label><input type="number" id="fc-prazo" value="18" min="1" max="60" oninput="renderFluxo()"></div>
+      <div class="field"><label>Velocidade de vendas (%/mês)</label><input type="number" id="fc-vv" value="6" min="0.1" max="100" step="0.5" oninput="renderFluxo()"><div class="field-note">% do VGV absorvido por mês</div></div>
+      <div class="field"><label>Taxa de atratividade (% a.m.)</label><input type="number" id="fc-tma" value="1.0" min="0" step="0.1" oninput="renderFluxo()"><div class="field-note">Usado no cálculo do VPL</div></div>
+      <div class="field"><label>Financiamento bancário (%)</label><input type="number" id="fc-fin" value="0" min="0" max="100" step="1" oninput="renderFluxo()"><div class="field-note">% do custo financiado (juros: 1,1% a.m.)</div></div>
+    </div>
+    <div class="div"></div>
+    <div class="card-tag" style="margin-bottom:6px;">Distribuição do custo de construção por fase (soma deve = 100%)</div>
+    <div class="fgrid fg5">
+      <div class="field"><label>Fundação (%)</label><input type="number" id="fc-fund" value="10" min="0" oninput="renderFluxo()"></div>
+      <div class="field"><label>Estrutura (%)</label><input type="number" id="fc-est" value="35" min="0" oninput="renderFluxo()"></div>
+      <div class="field"><label>Alvenaria/Vedação (%)</label><input type="number" id="fc-alv" value="15" min="0" oninput="renderFluxo()"></div>
+      <div class="field"><label>Instalações (%)</label><input type="number" id="fc-ins" value="20" min="0" oninput="renderFluxo()"></div>
+      <div class="field"><label>Acabamento (%)</label><input type="number" id="fc-acab" value="20" min="0" oninput="renderFluxo()"></div>
+    </div>
+  </div>
+
+  <!-- Cronograma visual -->
+  <div class="card" style="margin-bottom:18px;">
+    <div class="card-tag">Cronograma Físico-Financeiro</div>
+    <div class="card-title">Distribuição de desembolso e receita por fase</div>
+    <div id="crono-container"></div>
+    <div class="div"></div>
+    <!-- KPIs TIR/VPL -->
+    <div class="kpi-row" id="kpi-row">
+      <div class="kpi"><div class="kpi-label">VPL</div><div class="kpi-val" id="kpi-vpl">—</div><div class="kpi-sub">Valor Presente Líquido</div></div>
+      <div class="kpi"><div class="kpi-label">TIR (mensal)</div><div class="kpi-val" id="kpi-tir-m">—</div><div class="kpi-sub">Taxa Interna de Retorno</div></div>
+      <div class="kpi"><div class="kpi-label">TIR (anual)</div><div class="kpi-val" id="kpi-tir-a">—</div><div class="kpi-sub">Equivalente anual</div></div>
+      <div class="kpi"><div class="kpi-label">Payback</div><div class="kpi-val" id="kpi-payback">—</div><div class="kpi-sub">Retorno do investimento</div></div>
+      <div class="kpi"><div class="kpi-label">Custo financ.</div><div class="kpi-val" id="kpi-juro">—</div><div class="kpi-sub">Juros de produção</div></div>
+    </div>
+  </div>
+
+  <!-- Tabela de fluxo -->
+  <div class="card">
+    <div class="card-tag">Fluxo de Caixa Resumido</div>
+    <div class="card-title">Desembolso vs Receita mês a mês</div>
+    <div id="fc-table-container" style="overflow-x:auto;max-height:320px;overflow-y:auto;"></div>
+  </div>
+
+</div>
+</div>
+
+<!-- ============================= TAB 5 — SENSIBILIDADE ============================= -->
+<div class="tab-panel" id="tab-sensib">
+<div class="main">
+  <div class="card">
+    <div class="card-tag">Análise de Sensibilidade</div>
+    <div class="card-title">Impacto de variações isoladas no VGV, Lucro e Viabilidade</div>
+    <div style="overflow-x:auto;margin-top:8px;" class="sens-wrap">
+      <table class="sens-table" id="sens-table">
+        <thead>
+          <tr>
+            <th style="text-align:left;min-width:180px;">Variável</th>
+            <th>−20%</th><th>−15%</th><th>−10%</th><th>−5%</th>
+            <th style="background:#C8A96E;">Base</th>
+            <th>+5%</th><th>+10%</th><th>+15%</th><th>+20%</th>
+          </tr>
+        </thead>
+        <tbody id="sens-tbody"></tbody>
+      </table>
+    </div>
+    <div class="field-note" style="margin-top:10px;">🟢 Margem positiva &nbsp;|&nbsp; 🔴 Inviável &nbsp;|&nbsp; 🟡 Margem estreita (&lt;5%)</div>
+  </div>
+</div>
+</div>
+
+<!-- ============================= TAB 6 — ASSINATURA ============================= -->
+<div class="tab-panel" id="tab-sig">
+<div class="main">
+  <div class="card">
+    <div class="card-tag">Responsável Técnico</div>
+    <div class="card-title">Dados para o Relatório Técnico (PDF)</div>
+    <div class="sig-grid">
+      <div class="field"><label>Nome do profissional</label><input type="text" id="sig-nome" placeholder="Ex: João Silva" oninput="render()"></div>
+      <div class="field"><label>Registro / CREA / CAU</label><input type="text" id="sig-registro" placeholder="Ex: CREA-MA 123456" oninput="render()"></div>
+      <div class="field"><label>Data do relatório</label><input type="date" id="sig-data" oninput="render()"></div>
+    </div>
+    <div class="div"></div>
+    <div class="fgrid fg3">
+      <div class="field"><label>Matrícula/Disciplina</label><input type="text" id="sig-disc" placeholder="Ex: Planejamento e Gestão de Obras" oninput="render()"></div>
+      <div class="field"><label>Professor / Orientador</label><input type="text" id="sig-prof" placeholder="Ex: Prof. Fernando Cutrim" oninput="render()"></div>
+      <div class="field"><label>Instituição</label><input type="text" id="sig-inst" placeholder="Ex: UEMA — Engenharia Civil" oninput="render()"></div>
+    </div>
+    <div class="sig-note">
+      📋 <strong>Referências normativas:</strong> ABNT NBR 12.721:2006 · Lei Federal nº 4.591/1964 (incorporações imobiliárias) · CUB Sinduscon-MA Fev/2026 · Índice FipeZAP Dez/2025 (FIPE/DataZap) · SINAPI Fev/2026 (IBGE/CEF) · Lei nº 14.973/2024 (reoneração da folha)
+    </div>
+  </div>
+</div>
+</div>
+
+
+<!-- ============================= PDF REPORT ============================= -->
+<div class="pdf-only">
+  <!-- CAPA -->
+  <div class="pdf-cover">
+    <div>
+      <div class="pdf-eye">Estudo de Viabilidade Econômico-Financeira · Sistema PRO · CUB/Sinduscon</div>
+      <div class="pdf-h1" id="pdf-cover-cliente">—</div>
+      <div class="pdf-sub" id="pdf-cover-obra">—</div>
+      <div class="pdf-loc" id="pdf-cover-local">—</div>
+      <div class="pdf-div"></div>
+      <div class="pdf-meta">
+        <div><div class="pdf-meta-lbl">VGV — Valor Geral de Vendas</div><div class="pdf-meta-val" id="pdf-meta-vgv">—</div></div>
+        <div><div class="pdf-meta-lbl">Preço por unidade</div><div class="pdf-meta-val" id="pdf-meta-apt">—</div></div>
+        <div><div class="pdf-meta-lbl">Veredicto</div><div class="pdf-meta-val" id="pdf-meta-veredicto">—</div></div>
+      </div>
+      <div class="pdf-norma">CUB: <span id="pdf-cub-ref">—</span> · FipeZAP Dez/2025: R$8.617/m² (São Luís) · SINAPI Fev/2026: R$1.925,08/m² · ABNT NBR 12.721:2006</div>
+    </div>
+    <div class="pdf-bot">
+      <div>
+        <div class="pdf-bot-lbl">Elaborado por</div>
+        <div class="pdf-bot-val" id="pdf-cover-prof">—</div>
+        <div style="font-size:9px;color:rgba(255,255,255,.35);" id="pdf-cover-inst">—</div>
+      </div>
+      <div style="text-align:right;">
+        <div style="font-size:12px;color:rgba(255,255,255,.3);" id="pdf-cover-date">—</div>
+        <div style="font-size:9px;color:rgba(255,255,255,.2);" id="pdf-cover-disc">—</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PÁG 1 -->
+  <div class="pdf-body">
+    <div class="pdf-bh"><div class="pdf-bh-l">Estudo de Viabilidade Econômico-Financeira · Sistema PRO</div><div class="pdf-bh-r" id="pdf-bh1">—</div></div>
+
+    <div class="pdf-sec-keep">
+      <div class="pdf-sec-tag">Introdução</div>
+      <div class="pdf-sec-h">Objetivo e Metodologia</div>
+      <div class="pdf-nar" id="pdf-nar-intro"></div>
+    </div>
+
+    <div class="pdf-sec-keep">
+      <div class="pdf-sec-tag">Etapa 1</div>
+      <div class="pdf-sec-h">Composição de Áreas (ABNT NBR 12.721:2006)</div>
+      <div class="pdf-nar" id="pdf-nar-areas"></div>
+      <table class="pdf-tbl">
+        <thead><tr><th>Tipo de Área</th><th class="r">Qtd</th><th class="r">Área Total (m²)</th><th class="r">Coef. Equiv.</th><th class="r">Área Equiv. (m²)</th><th class="r">Part. (%)</th></tr></thead>
+        <tbody id="pdf-pav-tbody"></tbody>
+        <tfoot><tr><td>TOTAL</td><td></td><td class="r" id="pdf-ft-total">—</td><td></td><td class="r" id="pdf-ft-equiv">—</td><td class="r">100%</td></tr></tfoot>
+      </table>
+      <div class="pdf-mrow pdf-m4" id="pdf-metrics-areas"></div>
+    </div>
+
+    <div class="pdf-sec-keep">
+      <div class="pdf-sec-tag">Etapa 2</div>
+      <div class="pdf-sec-h">Custos Indiretos e Terreno</div>
+      <div class="pdf-nar" id="pdf-nar-ind"></div>
+      <div class="pdf-2col">
+        <table class="pdf-tbl">
+          <thead><tr><th>Custo Indireto</th><th class="r">%</th><th class="r">R$</th></tr></thead>
+          <tbody id="pdf-ind-tbody"></tbody>
+          <tfoot><tr><td>Total Indir. + Terreno</td><td class="r" id="pdf-ind-pct">—</td><td class="r" id="pdf-ind-val">—</td></tr></tfoot>
+        </table>
+        <div>
+          <canvas id="pdf-pie" width="130" height="130" style="display:block;margin-bottom:8px;"></canvas>
+          <div id="pdf-pie-legend" style="font-size:9pt;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PÁG 2 — nova página forçada -->
+  <div class="pdf-pb">
+    <div class="pdf-body" style="padding-top:0;">
+      <div class="pdf-bh"><div class="pdf-bh-l">Estudo de Viabilidade Econômico-Financeira · Sistema PRO</div><div class="pdf-bh-r" id="pdf-bh2">—</div></div>
+
+      <div class="pdf-sec-keep">
+        <div class="pdf-sec-tag">Etapa 3</div>
+        <div class="pdf-sec-h">Tributação, Corretagem e Margem de Lucro</div>
+        <div class="pdf-nar" id="pdf-nar-imp"></div>
+        <table class="pdf-tbl">
+          <thead><tr><th>Item</th><th class="r">%</th><th class="r">R$</th></tr></thead>
+          <tbody id="pdf-imp-tbody"></tbody>
+          <tfoot><tr><td>Total Deduções</td><td class="r" id="pdf-imp-pct">—</td><td class="r" id="pdf-imp-val">—</td></tr></tfoot>
+        </table>
+      </div>
+
+      <div class="pdf-sec-keep">
+        <div class="pdf-sec-tag">Resultado</div>
+        <div class="pdf-sec-h">Composição Financeira e VGV</div>
+        <div class="pdf-2col">
+          <div>
+            <div class="pdf-rline"><span class="l">Custo direto de construção</span><span class="v" id="pdf-r-constr">—</span></div>
+            <div class="pdf-rline"><span class="l">Custos indiretos</span><span class="v" id="pdf-r-ind">—</span></div>
+            <div class="pdf-rline"><span class="l">Custo do terreno</span><span class="v" id="pdf-r-ter">—</span></div>
+            <div class="pdf-rline bold"><span class="l">Custo total empreendimento</span><span class="v" id="pdf-r-total">—</span></div>
+            <div class="pdf-rline"><span class="l">Impostos</span><span class="v" id="pdf-r-imp">—</span></div>
+            <div class="pdf-rline"><span class="l">Comissão</span><span class="v" id="pdf-r-cor">—</span></div>
+            <div class="pdf-rline"><span class="l">Lucro</span><span class="v" id="pdf-r-luc">—</span></div>
+            <div class="pdf-rline bold"><span class="l">VGV total</span><span class="v" id="pdf-r-vgv">—</span></div>
+          </div>
+          <div>
+            <div class="pdf-mrow pdf-m2">
+              <div class="pdf-metric"><div class="pdf-metric-lbl">Preço/unidade</div><div class="pdf-metric-val" id="pdf-r-apt">—</div></div>
+              <div class="pdf-metric"><div class="pdf-metric-lbl">Lucro total</div><div class="pdf-metric-val green" id="pdf-r-lucval">—</div></div>
+              <div class="pdf-metric"><div class="pdf-metric-lbl">Custo/m²</div><div class="pdf-metric-val" id="pdf-r-cm2">—</div></div>
+              <div class="pdf-metric"><div class="pdf-metric-lbl">Venda/m²</div><div class="pdf-metric-val" id="pdf-r-vm2">—</div></div>
+              <div class="pdf-metric"><div class="pdf-metric-lbl">ROI</div><div class="pdf-metric-val" id="pdf-r-roi">—</div></div>
+              <div class="pdf-metric"><div class="pdf-metric-lbl">Margem líq.</div><div class="pdf-metric-val" id="pdf-r-marg">—</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pdf-mkt" id="pdf-mkt">—</div>
+
+      <div class="pdf-viavel" id="pdf-viavel-box">
+        <div class="pdf-vh" id="pdf-viavel-head">—</div>
+        <div class="pdf-vb" id="pdf-viavel-body">—</div>
+      </div>
+
+      <div class="pdf-sec-keep">
+        <div class="pdf-sec-tag">Análise de Cenários</div>
+        <div class="pdf-sec-h">Otimista · Realista · Pessimista</div>
+        <div class="pdf-sc" id="pdf-sc-cards"></div>
+      </div>
+
+      <!-- Assinaturas — sempre mantidas juntas -->
+      <div class="pdf-sig">
+        <div class="pdf-sig-grid">
+          <div class="pdf-sig-blk">
+            <div class="pdf-sig-title">Elaborado por</div>
+            <div class="pdf-sig-line"></div>
+            <div class="pdf-sig-name" id="pdf-sig-nome">—</div>
+            <div class="pdf-sig-role" id="pdf-sig-reg">—</div>
+          </div>
+          <div class="pdf-sig-blk">
+            <div class="pdf-sig-title">Orientador / Professor</div>
+            <div class="pdf-sig-line"></div>
+            <div class="pdf-sig-name" id="pdf-sig-prof">—</div>
+            <div class="pdf-sig-role">Professor / Orientador</div>
+          </div>
+          <div class="pdf-sig-blk">
+            <div class="pdf-sig-title">Aprovado por</div>
+            <div class="pdf-sig-line"></div>
+            <div class="pdf-sig-name" id="pdf-sig-cliente">—</div>
+            <div class="pdf-sig-role">Contratante / Incorporador</div>
+          </div>
+        </div>
+        <div class="pdf-footer" id="pdf-footer">—</div>
+        <div class="pdf-norma-footer">ABNT NBR 12.721:2006 · Lei Federal nº 4.591/1964 · CUB Sinduscon-MA Fev/2026 · Índice FipeZAP Dez/2025 (FIPE) · SINAPI Fev/2026 (IBGE/CEF) · Lei nº 14.973/2024</div>
+      </div>
+    </div>
+  </div>
+</div><!-- /pdf-only -->
+
+<!-- =================== JAVASCRIPT =================== -->
+<script src="{{ url_for('static', filename='apps/js/viabilidade.js') }}"></script>
+</body>
+</html>
