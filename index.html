@@ -1,122 +1,503 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AppsWeb — Central de Ferramentas</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/main.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Caio Sousa Engenharia — Engenharia Civil & Consultoria Imobiliária</title>
+  <meta name="description" content="Engenharia civil, consultoria imobiliária e análise de viabilidade. Soluções técnicas e estratégicas para incorporadores, investidores e construtoras.">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
 
-<!-- HEADER -->
-<header class="header">
-  <div class="header-brand">
-    <div class="header-icon">⚡</div>
-    <div>
-      <div class="header-name">AppsWeb</div>
-      <div class="header-tagline">Central de Ferramentas Profissionais</div>
-    </div>
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="nav-inner wrap">
+    <a class="nav-brand" href="#hero">
+      <span class="nav-logo">CS</span>
+      <span class="nav-name">Caio Sousa <em>Engenharia</em></span>
+    </a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#servicos">Serviços</a></li>
+      <li><a href="#processo">Metodologia</a></li>
+      <li><a href="#ferramentas" class="nav-highlight">Ferramentas</a></li>
+      <li><a href="#portfolio">Portfólio</a></li>
+      <li><a href="#sobre">Sobre</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+    <a class="btn btn-nav" href="#cta">Solicitar Orçamento</a>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav-links">
+      <span></span><span></span><span></span>
+    </button>
   </div>
-  <div class="header-badge">VER 1.0</div>
-</header>
+</nav>
 
 <!-- HERO -->
-<section class="hero">
-  <div class="hero-eyebrow">Suite de Aplicativos</div>
-  <h1 class="hero-title">Ferramentas para<br>profissionais de alta performance</h1>
-  <p class="hero-sub">Acesse calculadoras, modelos financeiros e ferramentas analíticas desenvolvidas para resultados reais.</p>
-  <div class="hero-stats">
-    <div class="hero-stat">
-      <div class="hero-stat-dot"></div>
-      <span>1 app disponível</span>
-    </div>
-    <div class="hero-stat">
-      <div class="hero-stat-dot" style="background:#4E6680"></div>
-      <span>4 em desenvolvimento</span>
-    </div>
-    <div class="hero-stat">
-      <div class="hero-stat-dot" style="background:var(--gold)"></div>
-      <span>100% no browser</span>
-    </div>
-  </div>
-</section>
-
-<!-- APPS DISPONÍVEIS -->
-<section class="section">
-  <div class="section-header">
-    <div class="section-title">Apps disponíveis</div>
-    <div class="app-count">1 app</div>
-  </div>
-  <div class="app-grid">
-
-    <!-- Viabilidade Imobiliária PRO -->
-    <a class="app-card" href="apps/viabilidade-imobiliaria.html">
-      <div class="card-header">
-        <div class="card-icon green">🏗️</div>
-        <div class="card-badges">
-          <span class="badge live">Live</span>
-          <span class="badge new">Novo</span>
+<section id="hero" class="hero">
+  <div class="wrap hero-wrap">
+    <div class="hero-content">
+      <span class="stag">Engenharia Civil & Consultoria</span>
+      <h1>Transformamos projetos em <em>realidade rentável</em></h1>
+      <p class="hero-lead">Do laudo técnico à análise de viabilidade financeira — entregamos segurança técnica e visão estratégica para incorporadores, investidores e construtoras.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-gold" href="#cta">Solicitar Orçamento</a>
+        <a class="btn btn-ghost" href="#servicos">Ver Serviços</a>
+      </div>
+      <div class="hero-kpis">
+        <div class="kpi">
+          <strong>+120</strong>
+          <span>projetos entregues</span>
+        </div>
+        <div class="kpi-sep"></div>
+        <div class="kpi">
+          <strong>CREA-SP</strong>
+          <span>certificado</span>
+        </div>
+        <div class="kpi-sep"></div>
+        <div class="kpi">
+          <strong>15 anos</strong>
+          <span>de experiência</span>
         </div>
       </div>
-      <div>
-        <div class="card-category">Incorporação Imobiliária</div>
-        <div class="card-name">Viabilidade Imobiliária PRO</div>
+    </div>
+    <div class="hero-visual reveal">
+      <div class="hero-card-float hc1">
+        <span class="hc-label">TIR do empreendimento</span>
+        <span class="hc-value">24,7%</span>
+        <span class="hc-sub">Acima do benchmark de mercado</span>
       </div>
-      <div class="card-desc">
-        Calculadora completa de viabilidade baseada no CUB/Sinduscon. Analise custos, receitas, fluxo de caixa, TIR, VPL e cenários de sensibilidade para empreendimentos residenciais e comerciais.
+      <div class="hero-card-float hc2">
+        <span class="hc-label">VPL calculado</span>
+        <span class="hc-value">R$ 2,4 M</span>
+        <span class="hc-sub">Projeção 48 meses</span>
       </div>
-      <div class="card-tags">
-        <span class="tag">CUB / Sinduscon</span>
-        <span class="tag">TIR &amp; VPL</span>
-        <span class="tag">Fluxo de Caixa</span>
-        <span class="tag">Cenários</span>
-      </div>
-      <div class="card-footer">
-        <span class="card-cta">
-          Abrir app
-          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"
-               stroke-linecap="round" stroke-linejoin="round">
-            <path d="M3 8h10M9 4l4 4-4 4"/>
-          </svg>
-        </span>
-        <span class="card-meta">HTML · Offline</span>
-      </div>
-    </a>
-
+    </div>
   </div>
 </section>
 
-<!-- EM BREVE -->
-<section class="soon-section">
-  <div style="max-width:1200px;margin:0 auto;">
-    <div class="section-title" style="margin-bottom:14px;">Em breve</div>
-    <div class="soon-grid">
-      <div class="soon-card">
-        <div class="soon-icon">📊</div>
-        <div><div class="soon-name">DRE Gerencial</div><div class="soon-cat">Contabilidade</div></div>
+<!-- SERVIÇOS -->
+<section id="servicos" class="section-pad">
+  <div class="wrap">
+    <span class="stag">O que fazemos</span>
+    <h2>Serviços de <em>engenharia e consultoria</em></h2>
+    <p class="s-intro">Cobrimos todas as etapas técnicas e estratégicas do ciclo imobiliário e de construção civil.</p>
+    <div class="srv-grid reveal">
+
+      <div class="srv-card">
+        <div class="srv-icon">📐</div>
+        <h3>Projetos de Engenharia</h3>
+        <p>Projetos estruturais, fundações, laudos técnicos e ARTs para obras residenciais, comerciais e industriais.</p>
+        <ul class="srv-list">
+          <li>Projeto estrutural</li>
+          <li>Laudos e perícias</li>
+          <li>ART / RRT</li>
+        </ul>
       </div>
-      <div class="soon-card">
-        <div class="soon-icon">💰</div>
-        <div><div class="soon-name">Simulador Financiamento</div><div class="soon-cat">Crédito</div></div>
+
+      <div class="srv-card srv-card--gold">
+        <div class="srv-icon">📊</div>
+        <h3>Viabilidade Imobiliária</h3>
+        <p>Análise completa com CUB/Sinduscon, fluxo de caixa, TIR, VPL e estudo de sensibilidade para incorporações.</p>
+        <ul class="srv-list">
+          <li>Estudo de viabilidade</li>
+          <li>Análise de TIR & VPL</li>
+          <li>Cenários de sensibilidade</li>
+        </ul>
       </div>
-      <div class="soon-card">
-        <div class="soon-icon">📐</div>
-        <div><div class="soon-name">Orçamento de Obra</div><div class="soon-cat">Construção</div></div>
+
+      <div class="srv-card">
+        <div class="srv-icon">🏗️</div>
+        <h3>Gerenciamento de Obras</h3>
+        <p>Acompanhamento físico-financeiro, controle de cronograma, medições e relatórios de progresso.</p>
+        <ul class="srv-list">
+          <li>Controle de cronograma</li>
+          <li>Medições mensais</li>
+          <li>Relatório de progresso</li>
+        </ul>
       </div>
-      <div class="soon-card">
-        <div class="soon-icon">🏠</div>
-        <div><div class="soon-name">Avaliação de Imóveis</div><div class="soon-cat">Precificação</div></div>
+
+      <div class="srv-card">
+        <div class="srv-icon">🏠</div>
+        <h3>Avaliação de Imóveis</h3>
+        <p>Laudos de avaliação conforme NBR 14.653 pelo método comparativo direto, para garantia, compra e venda.</p>
+        <ul class="srv-list">
+          <li>Método comparativo direto</li>
+          <li>NBR 14.653</li>
+          <li>Laudo assinado CREA</li>
+        </ul>
+      </div>
+
+      <div class="srv-card">
+        <div class="srv-icon">📋</div>
+        <h3>Orçamento de Obras</h3>
+        <p>Levantamento de quantitativos com base SINAPI, composições customizadas e memória de cálculo detalhada.</p>
+        <ul class="srv-list">
+          <li>SINAPI atualizado</li>
+          <li>Quantitativos detalhados</li>
+          <li>Memória de cálculo</li>
+        </ul>
+      </div>
+
+      <div class="srv-card">
+        <div class="srv-icon">🔍</div>
+        <h3>Due Diligence Técnica</h3>
+        <p>Análise documental e vistoria técnica de empreendimentos para aquisição, fusão ou refinanciamento.</p>
+        <ul class="srv-list">
+          <li>Vistoria técnica</li>
+          <li>Análise documental</li>
+          <li>Relatório executivo</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- DIFERENCIAIS -->
+<section id="diferenciais" class="section-pad section-alt">
+  <div class="wrap">
+    <span class="stag">Por que nos escolher</span>
+    <h2>Diferenciais que <em>geram resultado</em></h2>
+    <div class="dif-grid reveal">
+
+      <div class="dif-item">
+        <div class="dif-num">01</div>
+        <h4>Visão técnica + financeira</h4>
+        <p>Unimos engenharia civil e análise de investimentos para decisões fundamentadas em dados reais.</p>
+      </div>
+
+      <div class="dif-item">
+        <div class="dif-num">02</div>
+        <h4>Ferramentas proprietárias</h4>
+        <p>Modelos financeiros e calculadoras exclusivas que entregam resultados rápidos e auditáveis.</p>
+      </div>
+
+      <div class="dif-item">
+        <div class="dif-num">03</div>
+        <h4>Transparência total</h4>
+        <p>Todas as memórias de cálculo, premissas e fontes são documentadas e entregues junto ao estudo.</p>
+      </div>
+
+      <div class="dif-item">
+        <div class="dif-num">04</div>
+        <h4>Prazo cumprido</h4>
+        <p>Processos estruturados e cronograma comprometido — sua decisão não espera pelo laudo.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROCESSO -->
+<section id="processo" class="section-pad">
+  <div class="wrap">
+    <span class="stag">Como trabalhamos</span>
+    <h2>Nossa <em>metodologia</em></h2>
+    <p class="s-intro">Um processo claro em quatro etapas para garantir qualidade técnica e agilidade na entrega.</p>
+    <div class="proc-list reveal">
+
+      <div class="proc-step">
+        <div class="proc-num">1</div>
+        <div class="proc-body">
+          <h4>Briefing & Diagnóstico</h4>
+          <p>Reunião inicial para entender o projeto, seus objetivos e levantar todas as informações necessárias.</p>
+        </div>
+      </div>
+
+      <div class="proc-step">
+        <div class="proc-num">2</div>
+        <div class="proc-body">
+          <h4>Proposta Técnica</h4>
+          <p>Escopo detalhado, prazo definido e orçamento transparente — sem surpresas.</p>
+        </div>
+      </div>
+
+      <div class="proc-step">
+        <div class="proc-num">3</div>
+        <div class="proc-body">
+          <h4>Execução & Revisões</h4>
+          <p>Desenvolvimento com check-ins periódicos. Você acompanha o progresso em tempo real.</p>
+        </div>
+      </div>
+
+      <div class="proc-step">
+        <div class="proc-num">4</div>
+        <div class="proc-body">
+          <h4>Entrega & Suporte</h4>
+          <p>Entrega do relatório completo com memória de cálculo e suporte pós-entrega incluso.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PÚBLICO -->
+<section id="publico" class="section-pad section-alt">
+  <div class="wrap">
+    <span class="stag">Para quem</span>
+    <h2>Atendemos quem <em>decide com dados</em></h2>
+    <div class="pub-grid reveal">
+
+      <div class="pub-card">
+        <div class="pub-icon">🏢</div>
+        <h4>Incorporadoras</h4>
+        <p>Estudos de viabilidade, gerenciamento de obras e laudos para bancos de fomento e investidores.</p>
+      </div>
+
+      <div class="pub-card">
+        <div class="pub-icon">💼</div>
+        <h4>Investidores</h4>
+        <p>Due diligence técnica e análise de retorno para tomada de decisão segura em ativos imobiliários.</p>
+      </div>
+
+      <div class="pub-card">
+        <div class="pub-icon">🏗️</div>
+        <h4>Construtoras</h4>
+        <p>Projetos estruturais, orçamentos SINAPI e acompanhamento técnico de obras em andamento.</p>
+      </div>
+
+      <div class="pub-card">
+        <div class="pub-icon">⚖️</div>
+        <h4>Advogados & Peritos</h4>
+        <p>Laudos periciais e avaliações para processos judiciais, inventários e partilhas.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FERRAMENTAS -->
+<section id="ferramentas" class="section-pad">
+  <div class="wrap">
+    <span class="stag">Ferramentas digitais</span>
+    <h2>Aplicativos para <em>análise técnica</em></h2>
+    <p class="s-intro">Calculadoras e modelos financeiros desenvolvidos para profissionais e clientes. Use diretamente no navegador, sem instalar nada.</p>
+    <div class="tools-grid reveal">
+
+      <!-- Card LIVE: Viabilidade Imobiliária PRO -->
+      <a class="tool-card tool-live" href="apps/viabilidade-imobiliaria.html">
+        <div class="tc-head">
+          <div class="tc-icon">🏗️</div>
+          <div class="tc-badges">
+            <span class="tc-badge live">Live</span>
+            <span class="tc-badge new">Novo</span>
+          </div>
+        </div>
+        <div class="tc-cat">Incorporação Imobiliária</div>
+        <div class="tc-name">Viabilidade Imobiliária PRO</div>
+        <p class="tc-desc">Calculadora completa baseada no CUB/Sinduscon. Analise custos, receitas, fluxo de caixa, TIR, VPL e cenários de sensibilidade para empreendimentos residenciais e comerciais.</p>
+        <div class="tc-tags">
+          <span>CUB / Sinduscon</span><span>TIR &amp; VPL</span><span>Fluxo de Caixa</span><span>Cenários</span>
+        </div>
+        <div class="tc-footer">
+          <span class="tc-cta">Abrir ferramenta →</span>
+          <span class="tc-meta">HTML · Offline</span>
+        </div>
+      </a>
+
+      <!-- 4 cards "em breve" -->
+      <div class="tool-card tool-soon">
+        <div class="tc-head"><div class="tc-icon">📊</div><div class="tc-badges"><span class="tc-badge soon">Em breve</span></div></div>
+        <div class="tc-cat">Contabilidade</div>
+        <div class="tc-name">DRE Gerencial</div>
+        <p class="tc-desc">Demonstrativo de resultado gerencial com análise de margens, despesas e projeções mensais.</p>
+        <div class="tc-tags"><span>DRE</span><span>Margem</span><span>Projeção</span></div>
+        <div class="tc-footer"><span class="tc-cta" style="opacity:.4">Em desenvolvimento</span></div>
+      </div>
+
+      <div class="tool-card tool-soon">
+        <div class="tc-head"><div class="tc-icon">💰</div><div class="tc-badges"><span class="tc-badge soon">Em breve</span></div></div>
+        <div class="tc-cat">Crédito Imobiliário</div>
+        <div class="tc-name">Simulador de Financiamento</div>
+        <p class="tc-desc">Compare sistemas SAC e Price, simule parcelas, juros totais e capacidade de pagamento.</p>
+        <div class="tc-tags"><span>SAC</span><span>Price</span><span>CET</span></div>
+        <div class="tc-footer"><span class="tc-cta" style="opacity:.4">Em desenvolvimento</span></div>
+      </div>
+
+      <div class="tool-card tool-soon">
+        <div class="tc-head"><div class="tc-icon">📐</div><div class="tc-badges"><span class="tc-badge soon">Em breve</span></div></div>
+        <div class="tc-cat">Construção</div>
+        <div class="tc-name">Orçamento de Obra</div>
+        <p class="tc-desc">Levantamento de quantitativos com tabela SINAPI integrada e memória de cálculo exportável.</p>
+        <div class="tc-tags"><span>SINAPI</span><span>Quantitativo</span><span>BIM</span></div>
+        <div class="tc-footer"><span class="tc-cta" style="opacity:.4">Em desenvolvimento</span></div>
+      </div>
+
+      <div class="tool-card tool-soon">
+        <div class="tc-head"><div class="tc-icon">🏠</div><div class="tc-badges"><span class="tc-badge soon">Em breve</span></div></div>
+        <div class="tc-cat">Avaliação</div>
+        <div class="tc-name">Avaliação de Imóveis</div>
+        <p class="tc-desc">Cálculo do valor de mercado pelo método comparativo direto conforme NBR 14.653.</p>
+        <div class="tc-tags"><span>NBR 14.653</span><span>Mercado</span><span>Laudo</span></div>
+        <div class="tc-footer"><span class="tc-cta" style="opacity:.4">Em desenvolvimento</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PORTFÓLIO -->
+<section id="portfolio" class="section-pad section-alt">
+  <div class="wrap">
+    <span class="stag">Casos de sucesso</span>
+    <h2>Projetos que <em>entregaram resultado</em></h2>
+    <p class="s-intro">Uma seleção de trabalhos representativos — números reais, clientes reais.</p>
+    <div class="port-grid reveal">
+
+      <div class="port-card">
+        <div class="port-tag">Viabilidade</div>
+        <h4>Residencial 48 unidades — SP</h4>
+        <p>Estudo de viabilidade completo com análise de sensibilidade. TIR de 22% ao ano identificada em cenário base.</p>
+        <div class="port-meta">
+          <span>Incorporadora regional</span>
+          <span>2023</span>
+        </div>
+      </div>
+
+      <div class="port-card">
+        <div class="port-tag">Estrutural</div>
+        <h4>Galpão logístico 8.000 m²</h4>
+        <p>Projeto estrutural em aço e concreto, com laudos geotécnicos e acompanhamento de obra por 14 meses.</p>
+        <div class="port-meta">
+          <span>Empresa de logística</span>
+          <span>2022</span>
+        </div>
+      </div>
+
+      <div class="port-card">
+        <div class="port-tag">Due Diligence</div>
+        <h4>Aquisição de portfólio — 12 ativos</h4>
+        <p>Due diligence técnica de 12 imóveis comerciais para fundo de investimento. Riscos identificados e precificados.</p>
+        <div class="port-meta">
+          <span>FII privado</span>
+          <span>2024</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SOBRE -->
+<section id="sobre" class="section-pad">
+  <div class="wrap sobre-wrap">
+    <div class="sobre-content reveal">
+      <span class="stag">Sobre</span>
+      <h2>Engenharia civil com <em>visão de mercado</em></h2>
+      <p>Caio Sousa é engenheiro civil formado pela USP, com especialização em análise de investimentos imobiliários e 15 anos de experiência em projetos estruturais, viabilidade e gestão de obras.</p>
+      <p>Atua em projetos residenciais, comerciais e industriais, combinando rigor técnico com visão estratégica de negócios. Já entregou mais de 120 projetos em São Paulo e região.</p>
+      <div class="sobre-creds">
+        <div class="cred">
+          <span class="cred-label">Formação</span>
+          <span class="cred-value">Eng. Civil — USP</span>
+        </div>
+        <div class="cred">
+          <span class="cred-label">Registro</span>
+          <span class="cred-value">CREA-SP ativo</span>
+        </div>
+        <div class="cred">
+          <span class="cred-label">Especialização</span>
+          <span class="cred-value">Análise de Investimentos</span>
+        </div>
       </div>
     </div>
+    <div class="sobre-stats reveal">
+      <div class="sobre-stat">
+        <strong>+120</strong>
+        <span>projetos entregues</span>
+      </div>
+      <div class="sobre-stat">
+        <strong>15</strong>
+        <span>anos de mercado</span>
+      </div>
+      <div class="sobre-stat">
+        <strong>100%</strong>
+        <span>prazo cumprido</span>
+      </div>
+      <div class="sobre-stat">
+        <strong>R$ 500 M+</strong>
+        <span>em ativos analisados</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="section-pad section-alt">
+  <div class="wrap faq-wrap">
+    <span class="stag">Dúvidas frequentes</span>
+    <h2>Perguntas <em>frequentes</em></h2>
+    <div class="faq-list reveal">
+
+      <details class="faq-item">
+        <summary>Qual o prazo médio para um estudo de viabilidade?</summary>
+        <p>Estudos de viabilidade padrão são entregues em 5 a 10 dias úteis, dependendo da complexidade do empreendimento e da disponibilidade de dados fornecidos pelo cliente.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Vocês emitem ART para os projetos?</summary>
+        <p>Sim. Todos os projetos técnicos são acompanhados de ART (Anotação de Responsabilidade Técnica) junto ao CREA-SP, garantindo validade legal e técnica dos documentos.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Como funciona o processo de orçamento?</summary>
+        <p>Após um briefing inicial (presencial ou por vídeo), enviamos uma proposta com escopo detalhado, prazo e valor em até 24 horas. Não há cobrança pela consulta inicial.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Os apps de ferramentas são gratuitos?</summary>
+        <p>Sim. Os aplicativos disponíveis na seção Ferramentas são de uso gratuito para qualquer pessoa. São uma demonstração das metodologias que aplicamos nos estudos profissionais.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Atendem fora de São Paulo?</summary>
+        <p>Estudos de viabilidade, avaliações e consultoria financeira são realizados remotamente em todo o Brasil. Projetos estruturais e acompanhamento de obras são focados na região de São Paulo.</p>
+      </details>
+
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section id="cta" class="section-cta">
+  <div class="wrap cta-wrap reveal">
+    <span class="stag">Próximo passo</span>
+    <h2>Pronto para tomar decisões <em>com segurança técnica</em>?</h2>
+    <p>Fale com a gente e receba uma proposta personalizada em até 24 horas.</p>
+    <div class="cta-btns">
+      <a class="btn btn-gold btn-lg" href="https://wa.me/5511999999999?text=Olá%2C%20gostaria%20de%20solicitar%20um%20orçamento" target="_blank" rel="noopener">
+        Falar no WhatsApp
+      </a>
+      <a class="btn btn-ghost btn-lg" href="mailto:contato@caiosousa.eng.br">
+        Enviar e-mail
+      </a>
+    </div>
+    <p class="cta-note">Resposta garantida em até 1 dia útil. Sem compromisso.</p>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer class="footer">
-  <span class="footer-text">AppsWeb — Suite de Ferramentas Profissionais</span>
-  <span class="footer-version">v1.0.0</span>
+  <div class="wrap footer-inner">
+    <div class="footer-brand">
+      <span class="nav-logo">CS</span>
+      <div>
+        <div class="footer-name">Caio Sousa Engenharia</div>
+        <div class="footer-tagline">CREA-SP · Engenharia Civil & Consultoria Imobiliária</div>
+      </div>
+    </div>
+    <nav class="footer-nav" aria-label="Links do rodapé">
+      <a href="#servicos">Serviços</a>
+      <a href="#ferramentas">Ferramentas</a>
+      <a href="#portfolio">Portfólio</a>
+      <a href="#sobre">Sobre</a>
+      <a href="#cta">Contato</a>
+    </nav>
+    <div class="footer-copy">© 2025 Caio Sousa Engenharia. Todos os direitos reservados.</div>
+  </div>
 </footer>
 
+<script src="js/main.js" defer></script>
 </body>
 </html>
