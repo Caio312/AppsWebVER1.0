@@ -323,6 +323,8 @@ h1 em { font-style: italic; color: var(--gold); }
   border-radius: var(--r-lg);
   padding: clamp(1.25rem, 3vw, 1.75rem);
   transition: border-color .2s, transform .2s;
+  display: flex;
+  flex-direction: column;
 }
 .srv-card:hover {
   border-color: var(--bdr-gd);
@@ -332,28 +334,30 @@ h1 em { font-style: italic; color: var(--gold); }
   border-color: var(--bdr-gd);
   background: linear-gradient(135deg, rgba(200,169,110,.06) 0%, var(--bg-card) 60%);
 }
-.srv-icon {
-  font-size: 1.5rem;
-  margin-bottom: .9rem;
-  display: block;
+.srv-num {
+  font-family: var(--font-s);
+  font-size: 2rem;
+  font-weight: 300;
+  color: var(--bdr-gd);
+  line-height: 1;
+  margin-bottom: .75rem;
 }
-.srv-list {
-  margin-top: .75rem;
+.srv-tags {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   gap: .35rem;
+  margin-top: auto;
+  padding-top: .75rem;
 }
-.srv-list li {
-  font-size: .78rem;
-  color: var(--txt-mut);
-  padding-inline-start: .9rem;
-  position: relative;
-}
-.srv-list li::before {
-  content: '—';
-  position: absolute;
-  left: 0;
+.srv-tags span {
+  font-size: .6rem;
+  font-weight: 700;
+  letter-spacing: .09em;
+  text-transform: uppercase;
   color: var(--gold);
+  border: 1px solid var(--bdr-gds);
+  padding: .18rem .5rem;
+  border-radius: 2px;
 }
 
 /* ═══════════════════════════════════════
