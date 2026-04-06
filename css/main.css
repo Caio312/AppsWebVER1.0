@@ -166,17 +166,12 @@ p { color: var(--txt-sec); line-height: 1.7; font-size: .9rem; font-weight: 300;
   flex-shrink: 0;
   text-decoration: none;
 }
-.nav-logo {
-  width: 34px; height: 34px;
-  border-radius: var(--r);
-  background: var(--gold-bg);
-  border: 1px solid var(--bdr-gd);
-  display: flex; align-items: center; justify-content: center;
-  font-family: var(--font-s);
-  font-size: .9rem;
-  color: var(--gold);
-  letter-spacing: .04em;
+.nav-logo-img {
+  height: 42px;
+  width: auto;
+  display: block;
   flex-shrink: 0;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,.4));
 }
 .nav-name {
   font-size: .82rem;
@@ -688,7 +683,14 @@ h1 em { font-style: italic; color: var(--gold); }
 .footer-brand {
   display: flex;
   align-items: center;
-  gap: .7rem;
+  gap: .75rem;
+}
+.footer-logo-img {
+  height: 48px;
+  width: auto;
+  display: block;
+  flex-shrink: 0;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,.5));
 }
 .footer-name { font-size: .85rem; font-weight: 400; }
 .footer-tagline { font-size: .7rem; color: var(--txt-mut); margin-top: .15rem; }
