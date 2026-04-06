@@ -1,8 +1,6 @@
 'use strict';
 
-// ====================================================
-// ESTADO LOCAL (preenchido via API no boot)
-// ====================================================
+// Estado mutável (preenchido via API no boot)
 let TIPOLOGIAS = {};
 let AREAS     = [];
 let INDIRETOS = [];
@@ -22,7 +20,7 @@ const $     = id => document.getElementById(id);
 const set   = (id,v)=>{ const e=$(id); if(e) e.textContent=v; };
 const html  = (id,v)=>{ const e=$(id); if(e) e.innerHTML=v; };
 
-// Debounce: evita chamadas repetidas durante edição
+// Debounce para evitar chamadas repetidas durante edição
 let _debTimer = null;
 function scheduleRender(ms=300){ clearTimeout(_debTimer); _debTimer=setTimeout(render, ms); }
 
@@ -66,9 +64,6 @@ async function apiSensib(dados, areas, indiretos, impostos){
 }
 
 
-
-
-
 // ====================================================
 // CAMADA 3 — INTERFACE (apenas atualiza DOM)
 // ====================================================
@@ -90,8 +85,8 @@ async function render(){
     atualizarEntrada(r, dados);
     atualizarResultado(r, dados);
     atualizarPDF(r, dados);
-    await Promise.all([
-      renderScenarios(dados),
+    const [, , ] = await Promise.all([
+      renderScenarios(dados, r),
       renderFluxo(dados, r),
       renderSensib(dados),
     ]);
@@ -169,7 +164,7 @@ function atualizarResultado(r, dados){
   if(roiEl){roiEl.textContent=fmtP(r.roi*100);roiEl.className="metric-val"+(r.roi>0.15?" green":r.roi>0?" gold":" red");}
 }
 
-async function renderScenarios(dados){
+async function renderScenarios(dados, r){
   if(!dados) dados=getDados();
   const defs = [
     {id:"sc-opt-body", cls:"opt",
@@ -569,11 +564,6 @@ async function boot(){
     AREAS     = JSON.parse(JSON.stringify(t.areas));
     INDIRETOS = JSON.parse(JSON.stringify(t.indiretos));
     IMPOSTOS  = JSON.parse(JSON.stringify(t.impostos));
-    $("cub").value          = t.cub;
-    $("terreno").value      = t.terreno;
-    $("qtd-apts").value     = t.qtdApts;
-    $("area-apt").value     = t.areaApt;
-    $("preco-mercado").value = t.precoMercado;
   } catch(e){ console.error("Falha ao carregar tipologias:", e); }
   buildPavTable();
   buildIndGrid();
