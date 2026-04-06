@@ -1,261 +1,180 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-theme="auto">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Caio Sousa Engenharia — Engenharia & Avaliações</title>
-  <meta name="description" content="Engenharia civil, consultoria imobiliária e análise de viabilidade. Soluções técnicas e estratégicas para incorporadores, investidores e construtoras.">
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/main.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CS Engenharia & Avaliações | São Luís - MA</title>
+<meta name="description" content="Engenharia civil especializada em orçamentos, avaliações de imóveis e laudos de patologias em São Luís - MA. Tecnologia BIM e atendimento ágil.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/main.css">
 </head>
 <body>
 
 <!-- NAV -->
-<nav class="nav" id="nav">
-  <div class="nav-inner wrap">
-    <a class="nav-brand" href="#hero">
-      <div class="logo-box logo-box--nav">
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="#hero">
+      <div class="logo-box">
         <img src="assets/logo.png" alt="CS Engenharia & Avaliações">
       </div>
     </a>
-    <ul class="nav-links" id="nav-links">
+    <ul class="nav-links" id="navLinks">
       <li><a href="#servicos">Serviços</a></li>
-      <li><a href="#processo">Metodologia</a></li>
-      <li><a href="#ferramentas" class="nav-highlight">Ferramentas</a></li>
+      <li><a href="#diferenciais">Metodologia</a></li>
+      <li><a href="#ferramentas" class="nav-hl">Ferramentas</a></li>
       <li><a href="#portfolio">Portfólio</a></li>
       <li><a href="#sobre">Sobre</a></li>
       <li><a href="#faq">FAQ</a></li>
+      <li><a href="#cta" class="nav-cta">Solicitar Orçamento</a></li>
     </ul>
-    <a class="btn btn-nav" href="#cta">Solicitar Orçamento</a>
-    <button class="nav-hamburger" id="nav-hamburger" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav-links">
-      <span></span><span></span><span></span>
-    </button>
+    <button class="theme-btn" id="themeBtn" title="Alternar tema">🌙</button>
+    <button class="ham" id="ham" aria-label="Menu">☰</button>
   </div>
 </nav>
 
 <!-- HERO -->
-<section id="hero" class="hero">
-  <div class="wrap hero-wrap">
-    <div class="hero-content">
-      <span class="stag">Engenharia Civil & Consultoria</span>
-      <h1>Transformamos projetos em <em>realidade rentável</em></h1>
-      <p class="hero-lead">Do laudo técnico à análise de viabilidade financeira — entregamos segurança técnica e visão estratégica para incorporadores, investidores e construtoras.</p>
-      <div class="hero-ctas">
-        <a class="btn btn-gold" href="#cta">Solicitar Orçamento</a>
-        <a class="btn btn-ghost" href="#servicos">Ver Serviços</a>
+<section id="hero">
+  <div class="hero-bg"><div class="grid-ov"></div></div>
+  <div class="hero-in">
+    <div>
+      <div class="h-badge">Engenharia Civil · São Luís — MA</div>
+      <h1>Engenharia <em>precisa</em> para decisões que importam.</h1>
+      <p class="h-sub">Orçamentos técnicos, avaliações de imóveis e laudos de patologias com tecnologia BIM — entregas ágeis e linguagem clara para quem precisa de segurança nas suas decisões.</p>
+      <div class="h-acts">
+        <a href="#cta" class="btn-pri">Solicitar Orçamento</a>
+        <a href="#servicos" class="btn-gh">Ver Serviços</a>
       </div>
-      <div class="hero-kpis">
-        <div class="kpi">
-          <strong>+120</strong>
-          <span>projetos entregues</span>
-        </div>
-        <div class="kpi-sep"></div>
-        <div class="kpi">
-          <strong>CREA-SP</strong>
-          <span>certificado</span>
-        </div>
-        <div class="kpi-sep"></div>
-        <div class="kpi">
-          <strong>15 anos</strong>
-          <span>de experiência</span>
-        </div>
+      <div class="h-stats">
+        <div><div class="s-num">2+</div><div class="s-lbl">Anos de experiência</div></div>
+        <div><div class="s-num">BIM</div><div class="s-lbl">Metodologia</div></div>
+        <div><div class="s-num">MA</div><div class="s-lbl">Atuação regional</div></div>
       </div>
     </div>
-    <div class="hero-visual reveal">
-      <div class="hero-card-float hc1">
-        <span class="hc-label">TIR do empreendimento</span>
-        <span class="hc-value">24,7%</span>
-        <span class="hc-sub">Acima do benchmark de mercado</span>
-      </div>
-      <div class="hero-card-float hc2">
-        <span class="hc-label">VPL calculado</span>
-        <span class="hc-value">R$ 2,4 M</span>
-        <span class="hc-sub">Projeção 48 meses</span>
-      </div>
+    <div class="h-card">
+      <div class="h-card-t">Serviços Disponíveis</div>
+      <a href="#cta" class="svc-pill"><div class="sp-ic">📐</div><span class="sp-nm">Orçamentos de Obras</span><span class="sp-ar">→</span></a>
+      <a href="#cta" class="svc-pill"><div class="sp-ic">🏠</div><span class="sp-nm">Avaliação de Imóveis</span><span class="sp-ar">→</span></a>
+      <a href="#cta" class="svc-pill"><div class="sp-ic">🔍</div><span class="sp-nm">Laudos de Patologias</span><span class="sp-ar">→</span></a>
+      <a href="#cta" class="svc-pill"><div class="sp-ic">📋</div><span class="sp-nm">Regularização de Imóveis</span><span class="sp-ar">→</span></a>
+      <a href="#cta" class="svc-pill"><div class="sp-ic">💬</div><span class="sp-nm">Consultoria Técnica</span><span class="sp-ar">→</span></a>
+      <div class="crea-b"><div class="crea-l">Engenheiro Civil · CREA-MA</div><div class="crea-n">CREA-MA XXXXXXX-D</div></div>
     </div>
   </div>
 </section>
 
 <!-- SERVIÇOS -->
-<section id="servicos" class="section-pad">
+<section id="servicos">
   <div class="wrap">
     <span class="stag">O que fazemos</span>
-    <h2>Serviços de <em>engenharia e consultoria</em></h2>
-    <p class="s-intro">Cobrimos todas as etapas técnicas e estratégicas do ciclo imobiliário e de construção civil.</p>
-    <div class="srv-grid reveal">
-
-      <div class="srv-card">
-        <div class="srv-num">01</div>
-        <h3>Orçamento de Obras</h3>
-        <p>Levantamento quantitativo e composição de preços unitários com base em tabelas SINAPI e SICRO. Memória de cálculo detalhada para obras residenciais, comerciais e reformas.</p>
-        <div class="srv-tags">
-          <span>SINAPI</span><span>BIM</span><span>RESIDENCIAL</span>
-        </div>
+    <h2>Soluções em <em>Engenharia Civil</em></h2>
+    <p class="s-intro">Do orçamento técnico ao laudo de vistoria — documentos com validade técnica, linguagem acessível e prazo respeitado.</p>
+    <div class="svc-grid reveal">
+      <div class="svc-card" onclick="location.href='#cta'" tabindex="0" role="button" aria-label="Solicitar orçamento de obras">
+        <div class="sc-n">01</div>
+        <div class="sc-t">Orçamento de Obras</div>
+        <p class="sc-d">Levantamento quantitativo e composição de preços unitários com base em tabelas SINAPI e SICRO. Memória de cálculo detalhada para obras residenciais, comerciais e reformas.</p>
+        <div class="sc-tags"><span>SINAPI</span><span>BIM</span><span>Residencial</span></div>
       </div>
-
-      <div class="srv-card srv-card--gold">
-        <div class="srv-num">02</div>
-        <h3>Avaliação de Imóveis</h3>
-        <p>Laudos de avaliação mercadológica e patrimonial conforme NBR 14.653 (ABNT). Para compra, venda, inventário, garantia bancária e partilha judicial.</p>
-        <div class="srv-tags">
-          <span>NBR 14.653</span><span>ABNT</span><span>LAUDO</span>
-        </div>
+      <div class="svc-card" onclick="location.href='#cta'" tabindex="0" role="button" aria-label="Solicitar avaliação de imóveis">
+        <div class="sc-n">02</div>
+        <div class="sc-t">Avaliação de Imóveis</div>
+        <p class="sc-d">Laudos de avaliação mercadológica e patrimonial conforme NBR 14.653 (ABNT). Para compra, venda, inventário, garantia bancária e partilha judicial.</p>
+        <div class="sc-tags"><span>NBR 14.653</span><span>ABNT</span><span>Laudo</span></div>
       </div>
-
-      <div class="srv-card">
-        <div class="srv-num">03</div>
-        <h3>Laudos de Patologias</h3>
-        <p>Diagnóstico técnico de manifestações patológicas: trincas, fissuras, umidade, corrosão de armaduras e recalques. Relatório com causa, extensão e recomendações de reparo.</p>
-        <div class="srv-tags">
-          <span>NBR 6118</span><span>VISTORIA</span><span>DIAGNÓSTICO</span>
-        </div>
+      <div class="svc-card" onclick="location.href='#cta'" tabindex="0" role="button" aria-label="Solicitar laudo de patologias">
+        <div class="sc-n">03</div>
+        <div class="sc-t">Laudos de Patologias</div>
+        <p class="sc-d">Diagnóstico técnico de manifestações patológicas: trincas, fissuras, umidade, corrosão de armaduras e recalques. Relatório com causa, extensão e recomendações de reparo.</p>
+        <div class="sc-tags"><span>NBR 6118</span><span>Vistoria</span><span>Diagnóstico</span></div>
       </div>
-
-      <div class="srv-card">
-        <div class="srv-num">04</div>
-        <h3>Regularização de Imóveis</h3>
-        <p>Levantamento arquitetônico, As Built, aprovação de projetos em prefeitura e cartório. Habite-se, averbação de construção e atualização de registro.</p>
-        <div class="srv-tags">
-          <span>AS BUILT</span><span>CARTÓRIO</span><span>PMSL</span>
-        </div>
+      <div class="svc-card" onclick="location.href='#cta'" tabindex="0" role="button" aria-label="Solicitar regularização">
+        <div class="sc-n">04</div>
+        <div class="sc-t">Regularização de Imóveis</div>
+        <p class="sc-d">Levantamento arquitetônico, As Built, aprovação de projetos em prefeitura e cartório. Habite-se, averbação de construção e atualização de registro.</p>
+        <div class="sc-tags"><span>As Built</span><span>Cartório</span><span>PMSL</span></div>
       </div>
-
-      <div class="srv-card">
-        <div class="srv-num">05</div>
-        <h3>Consultoria Técnica</h3>
-        <p>Análise técnica de projetos, revisão de orçamentos, parecer sobre viabilidade de obras e suporte a processos judiciais que exijam expertise em engenharia civil.</p>
-        <div class="srv-tags">
-          <span>PARECER</span><span>JUDICIAL</span><span>REVISÃO</span>
-        </div>
+      <div class="svc-card" onclick="location.href='#cta'" tabindex="0" role="button" aria-label="Solicitar consultoria técnica">
+        <div class="sc-n">05</div>
+        <div class="sc-t">Consultoria Técnica</div>
+        <p class="sc-d">Análise técnica de projetos, revisão de orçamentos, parecer sobre viabilidade de obras e suporte a processos judiciais que exijam expertise em engenharia civil.</p>
+        <div class="sc-tags"><span>Parecer</span><span>Judicial</span><span>Revisão</span></div>
       </div>
-
     </div>
   </div>
 </section>
 
-<!-- DIFERENCIAIS -->
-<section id="diferenciais" class="section-pad section-alt">
+<!-- DIFERENCIAIS / METODOLOGIA -->
+<section id="diferenciais">
   <div class="wrap">
-    <span class="stag">Por que nos escolher</span>
-    <h2>Diferenciais que <em>geram resultado</em></h2>
-    <div class="dif-grid reveal">
-
-      <div class="dif-item">
-        <div class="dif-num">01</div>
-        <h4>Visão técnica + financeira</h4>
-        <p>Unimos engenharia civil e análise de investimentos para decisões fundamentadas em dados reais.</p>
+    <span class="stag">Por que escolher</span>
+    <h2>Metodologia <em>moderna</em>, resultado confiável.</h2>
+    <p class="s-intro">Combinamos tecnologia BIM com rigor técnico das normas brasileiras para entregar documentos precisos, rastreáveis e defensáveis.</p>
+    <div class="diff-grid reveal">
+      <div class="diff-it"><div class="d-lbl">Tecnologia</div><div class="d-ttl">Modelagem BIM Integrada</div><p class="d-dsc">Extração automática de quantitativos a partir do modelo 3D — menos erros e memórias de cálculo auditáveis.</p></div>
+      <div class="diff-it"><div class="d-lbl">Agilidade</div><div class="d-ttl">Prazo Definido e Respeitado</div><p class="d-dsc">Cada serviço tem prazo comunicado no início. Você acompanha o andamento e recebe o documento no tempo combinado.</p></div>
+      <div class="diff-it"><div class="d-lbl">Conformidade</div><div class="d-ttl">Normas ABNT e Legislação Vigente</div><p class="d-dsc">Todos os laudos e orçamentos seguem as normas da ABNT (NBR 14.653, NBR 6118) e a legislação federal em vigor.</p></div>
+      <div class="diff-it"><div class="d-lbl">Atendimento</div><div class="d-ttl">Comunicação Direta e Transparente</div><p class="d-dsc">Sem intermediários. Você fala diretamente com o engenheiro responsável em qualquer etapa do projeto.</p></div>
+    </div>
+    <div class="bim-hl reveal">
+      <div class="bim-ic">🏗️</div>
+      <div class="bim-tx">
+        <h3>Por que o BIM faz diferença no seu orçamento?</h3>
+        <p>A metodologia BIM (Building Information Modeling) permite extrair quantitativos diretamente do modelo 3D da edificação, eliminando erros de medição manual e gerando memórias de cálculo auditáveis. Para obras privadas, significa menos aditivos surpresa durante a execução.</p>
       </div>
-
-      <div class="dif-item">
-        <div class="dif-num">02</div>
-        <h4>Ferramentas proprietárias</h4>
-        <p>Modelos financeiros e calculadoras exclusivas que entregam resultados rápidos e auditáveis.</p>
-      </div>
-
-      <div class="dif-item">
-        <div class="dif-num">03</div>
-        <h4>Transparência total</h4>
-        <p>Todas as memórias de cálculo, premissas e fontes são documentadas e entregues junto ao estudo.</p>
-      </div>
-
-      <div class="dif-item">
-        <div class="dif-num">04</div>
-        <h4>Prazo cumprido</h4>
-        <p>Processos estruturados e cronograma comprometido — sua decisão não espera pelo laudo.</p>
-      </div>
-
     </div>
   </div>
 </section>
 
 <!-- PROCESSO -->
-<section id="processo" class="section-pad">
+<section id="processo">
   <div class="wrap">
-    <span class="stag">Como trabalhamos</span>
-    <h2>Nossa <em>metodologia</em></h2>
-    <p class="s-intro">Um processo claro em quatro etapas para garantir qualidade técnica e agilidade na entrega.</p>
-    <div class="proc-list reveal">
-
-      <div class="proc-step">
-        <div class="proc-num">1</div>
-        <div class="proc-body">
-          <h4>Briefing & Diagnóstico</h4>
-          <p>Reunião inicial para entender o projeto, seus objetivos e levantar todas as informações necessárias.</p>
-        </div>
-      </div>
-
-      <div class="proc-step">
-        <div class="proc-num">2</div>
-        <div class="proc-body">
-          <h4>Proposta Técnica</h4>
-          <p>Escopo detalhado, prazo definido e orçamento transparente — sem surpresas.</p>
-        </div>
-      </div>
-
-      <div class="proc-step">
-        <div class="proc-num">3</div>
-        <div class="proc-body">
-          <h4>Execução & Revisões</h4>
-          <p>Desenvolvimento com check-ins periódicos. Você acompanha o progresso em tempo real.</p>
-        </div>
-      </div>
-
-      <div class="proc-step">
-        <div class="proc-num">4</div>
-        <div class="proc-body">
-          <h4>Entrega & Suporte</h4>
-          <p>Entrega do relatório completo com memória de cálculo e suporte pós-entrega incluso.</p>
-        </div>
-      </div>
-
+    <span class="stag">Processo</span>
+    <h2>Como funciona o <em>atendimento</em></h2>
+    <p class="s-intro">Quatro etapas simples, do primeiro contato até a entrega do seu documento técnico.</p>
+    <div class="proc-steps reveal">
+      <div class="step"><div class="st-num">1</div><div class="st-t">Primeiro Contato</div><p class="st-d">Você descreve sua necessidade por WhatsApp ou e-mail. Respondo em até 4 horas úteis.</p></div>
+      <div class="step"><div class="st-num">2</div><div class="st-t">Briefing Técnico</div><p class="st-d">Coletamos plantas, localização, finalidade do documento e todas as informações necessárias.</p></div>
+      <div class="step"><div class="st-num">3</div><div class="st-t">Elaboração e Revisão</div><p class="st-d">Desenvolvemos o orçamento ou laudo com verificação técnica e alinhamento às normas aplicáveis.</p></div>
+      <div class="step"><div class="st-num">4</div><div class="st-t">Entrega + Suporte</div><p class="st-d">Você recebe o documento em PDF com ART (quando aplicável) e suporte para dúvidas pós-entrega.</p></div>
     </div>
   </div>
 </section>
 
 <!-- PÚBLICO -->
-<section id="publico" class="section-pad section-alt">
+<section id="publico">
   <div class="wrap">
-    <span class="stag">Para quem</span>
-    <h2>Atendemos quem <em>decide com dados</em></h2>
-    <div class="pub-grid reveal">
-
-      <div class="pub-card">
-        <div class="pub-icon">🏢</div>
-        <h4>Incorporadoras</h4>
-        <p>Estudos de viabilidade, gerenciamento de obras e laudos para bancos de fomento e investidores.</p>
+    <div class="pub-grid">
+      <div class="reveal">
+        <span class="stag">Você se identifica?</span>
+        <h2>Situações que resolvemos</h2>
+        <ul class="dor-list">
+          <li><span class="dor-ic">▸</span><span>Preciso de um orçamento técnico para contratar uma obra sem ser enganado no preço.</span></li>
+          <li><span class="dor-ic">▸</span><span>Quero vender ou comprar um imóvel e preciso do valor real de mercado com documento válido.</span></li>
+          <li><span class="dor-ic">▸</span><span>Meu imóvel está trincado e não sei se é problema estrutural ou apenas acabamento.</span></li>
+          <li><span class="dor-ic">▸</span><span>Preciso regularizar uma construção na prefeitura ou cartório para não ter problemas na venda.</span></li>
+          <li><span class="dor-ic">▸</span><span>Tenho um inventário e preciso avaliar o imóvel para partilha com validade judicial.</span></li>
+          <li><span class="dor-ic">▸</span><span>Quero um laudo antes de comprar um imóvel usado para não ter surpresas depois.</span></li>
+        </ul>
       </div>
-
-      <div class="pub-card">
-        <div class="pub-icon">💼</div>
-        <h4>Investidores</h4>
-        <p>Due diligence técnica e análise de retorno para tomada de decisão segura em ativos imobiliários.</p>
+      <div class="sol-box reveal">
+        <h3>A solução certa para cada caso.</h3>
+        <p>Cada situação exige um documento específico — e o documento errado pode não ser aceito pelo banco, cartório, prefeitura ou tribunal. Antes de qualquer coisa, analiso a sua situação e indico exatamente o que você precisa.</p>
+        <p>Sem pacote fechado. Sem cobrança desnecessária. Apenas o serviço técnico adequado para o seu caso.</p>
+        <a href="#cta" class="btn-pri">Falar com o Engenheiro</a>
       </div>
-
-      <div class="pub-card">
-        <div class="pub-icon">🏗️</div>
-        <h4>Construtoras</h4>
-        <p>Projetos estruturais, orçamentos SINAPI e acompanhamento técnico de obras em andamento.</p>
-      </div>
-
-      <div class="pub-card">
-        <div class="pub-icon">⚖️</div>
-        <h4>Advogados & Peritos</h4>
-        <p>Laudos periciais e avaliações para processos judiciais, inventários e partilhas.</p>
-      </div>
-
     </div>
   </div>
 </section>
 
 <!-- FERRAMENTAS -->
-<section id="ferramentas" class="section-pad">
+<section id="ferramentas">
   <div class="wrap">
     <span class="stag">Ferramentas digitais</span>
     <h2>Aplicativos para <em>análise técnica</em></h2>
     <p class="s-intro">Calculadoras e modelos financeiros desenvolvidos para profissionais e clientes. Use diretamente no navegador, sem instalar nada.</p>
     <div class="tools-grid reveal">
 
-      <!-- Card LIVE: Viabilidade Imobiliária PRO -->
       <a class="tool-card tool-live" href="apps/viabilidade-imobiliaria.html">
         <div class="tc-head">
           <div class="tc-icon">🏗️</div>
@@ -267,16 +186,13 @@
         <div class="tc-cat">Incorporação Imobiliária</div>
         <div class="tc-name">Viabilidade Imobiliária PRO</div>
         <p class="tc-desc">Calculadora completa baseada no CUB/Sinduscon. Analise custos, receitas, fluxo de caixa, TIR, VPL e cenários de sensibilidade para empreendimentos residenciais e comerciais.</p>
-        <div class="tc-tags">
-          <span>CUB / Sinduscon</span><span>TIR &amp; VPL</span><span>Fluxo de Caixa</span><span>Cenários</span>
-        </div>
+        <div class="tc-tags"><span>CUB / Sinduscon</span><span>TIR &amp; VPL</span><span>Fluxo de Caixa</span><span>Cenários</span></div>
         <div class="tc-footer">
           <span class="tc-cta">Abrir ferramenta →</span>
           <span class="tc-meta">HTML · Offline</span>
         </div>
       </a>
 
-      <!-- 4 cards "em breve" -->
       <div class="tool-card tool-soon">
         <div class="tc-head"><div class="tc-icon">📊</div><div class="tc-badges"><span class="tc-badge soon">Em breve</span></div></div>
         <div class="tc-cat">Contabilidade</div>
@@ -318,165 +234,130 @@
 </section>
 
 <!-- PORTFÓLIO -->
-<section id="portfolio" class="section-pad section-alt">
+<section id="portfolio">
   <div class="wrap">
-    <span class="stag">Casos de sucesso</span>
-    <h2>Projetos que <em>entregaram resultado</em></h2>
-    <p class="s-intro">Uma seleção de trabalhos representativos — números reais, clientes reais.</p>
-    <div class="port-grid reveal">
-
-      <div class="port-card">
-        <div class="port-tag">Viabilidade</div>
-        <h4>Residencial 48 unidades — SP</h4>
-        <p>Estudo de viabilidade completo com análise de sensibilidade. TIR de 22% ao ano identificada em cenário base.</p>
-        <div class="port-meta">
-          <span>Incorporadora regional</span>
-          <span>2023</span>
-        </div>
+    <div class="pf-hdr">
+      <div><span class="stag">Trabalhos realizados</span><h2>Portfólio de <em>Projetos</em></h2></div>
+      <div class="pf-badge">Em construção</div>
+    </div>
+    <div class="pf-grid reveal">
+      <div class="pf-empty"><div class="pf-ic">📐</div><div class="pf-et">Orçamento de Obra</div><p class="pf-ed">Em breve: orçamentos realizados com SINAPI e modelagem BIM serão exibidos aqui.</p></div>
+      <div class="pf-empty"><div class="pf-ic">🏠</div><div class="pf-et">Avaliação de Imóvel</div><p class="pf-ed">Em breve: laudos de avaliação NBR 14.653 com área, localização e metodologia utilizada.</p></div>
+      <div class="pf-empty"><div class="pf-ic">🔍</div><div class="pf-et">Laudo de Patologia</div><p class="pf-ed">Em breve: vistorias técnicas documentadas com fotos, diagnóstico e recomendações.</p></div>
+    </div>
+    <div class="pf-cta reveal">
+      <div class="pf-cta-txt">
+        <strong>Quer ver seu projeto aqui?</strong>
+        <p>Novos cases são adicionados conforme os trabalhos são concluídos.</p>
       </div>
-
-      <div class="port-card">
-        <div class="port-tag">Estrutural</div>
-        <h4>Galpão logístico 8.000 m²</h4>
-        <p>Projeto estrutural em aço e concreto, com laudos geotécnicos e acompanhamento de obra por 14 meses.</p>
-        <div class="port-meta">
-          <span>Empresa de logística</span>
-          <span>2022</span>
-        </div>
-      </div>
-
-      <div class="port-card">
-        <div class="port-tag">Due Diligence</div>
-        <h4>Aquisição de portfólio — 12 ativos</h4>
-        <p>Due diligence técnica de 12 imóveis comerciais para fundo de investimento. Riscos identificados e precificados.</p>
-        <div class="port-meta">
-          <span>FII privado</span>
-          <span>2024</span>
-        </div>
-      </div>
-
+      <a href="#cta" class="btn-pri">Solicitar Orçamento</a>
     </div>
   </div>
 </section>
 
 <!-- SOBRE -->
-<section id="sobre" class="section-pad">
-  <div class="wrap sobre-wrap">
-    <div class="sobre-content reveal">
-      <span class="stag">Sobre</span>
-      <h2>Engenharia civil com <em>visão de mercado</em></h2>
-      <p>Caio Sousa é engenheiro civil formado pela USP, com especialização em análise de investimentos imobiliários e 15 anos de experiência em projetos estruturais, viabilidade e gestão de obras.</p>
-      <p>Atua em projetos residenciais, comerciais e industriais, combinando rigor técnico com visão estratégica de negócios. Já entregou mais de 120 projetos em São Paulo e região.</p>
-      <div class="sobre-creds">
-        <div class="cred">
-          <span class="cred-label">Formação</span>
-          <span class="cred-value">Eng. Civil — USP</span>
+<section id="sobre">
+  <div class="wrap">
+    <div class="sob-grid">
+      <div class="sob-foto reveal">
+        <div class="foto-ph">
+          <div class="f-ini">CS</div>
+          <div class="f-ins">Substitua por sua foto profissional em traje formal ou em campo</div>
         </div>
-        <div class="cred">
-          <span class="cred-label">Registro</span>
-          <span class="cred-value">CREA-SP ativo</span>
+        <div class="crea-c"><div class="crea-cl">Registro Profissional</div><div class="crea-cn">CREA-MA XXXXXXX-D</div></div>
+      </div>
+      <div class="sob-c reveal">
+        <span class="stag">Sobre o profissional</span>
+        <h2>Engenheiro <em>comprometido</em> com a técnica.</h2>
+        <p>Sou <strong>Caio Sousa</strong>, Engenheiro Civil formado e registrado no CREA-MA, com 2 anos de experiência prática adquirida na área de orçamentos no Maranhão — atuando na elaboração de planilhas com base no SINAPI, SICRO e na Nova Lei de Licitações (Lei 14.133/21).</p>
+        <p>Ao longo do período de estágio, participei da elaboração e revisão de orçamentos para obras de infraestrutura e edificações, tendo contato direto com as exigências técnicas do setor público e privado no estado.</p>
+        <p>Atuo também na área de <strong>avaliações de imóveis</strong> conforme a norma ABNT NBR 14.653 e em diagnóstico de <strong>patologias construtivas</strong> — áreas em que rigor técnico e comunicação clara fazem toda a diferença para o cliente.</p>
+        <div class="comp-list">
+          <div class="comp-it"><div class="c-dot"></div><span class="c-nm">Orçamentação com SINAPI / SICRO</span><span class="c-tag">2 anos</span></div>
+          <div class="comp-it"><div class="c-dot"></div><span class="c-nm">Avaliações de Imóveis — NBR 14.653</span><span class="c-tag">ABNT</span></div>
+          <div class="comp-it"><div class="c-dot"></div><span class="c-nm">Laudos de Patologias — NBR 6118</span><span class="c-tag">ABNT</span></div>
+          <div class="comp-it"><div class="c-dot"></div><span class="c-nm">Modelagem BIM (Revit / ArchiCAD)</span><span class="c-tag">Tecnologia</span></div>
+          <div class="comp-it"><div class="c-dot"></div><span class="c-nm">Regularização e As Built</span><span class="c-tag">Cartório/PMSL</span></div>
         </div>
-        <div class="cred">
-          <span class="cred-label">Especialização</span>
-          <span class="cred-value">Análise de Investimentos</span>
-        </div>
-      </div>
-    </div>
-    <div class="sobre-stats reveal">
-      <div class="sobre-stat">
-        <strong>+120</strong>
-        <span>projetos entregues</span>
-      </div>
-      <div class="sobre-stat">
-        <strong>15</strong>
-        <span>anos de mercado</span>
-      </div>
-      <div class="sobre-stat">
-        <strong>100%</strong>
-        <span>prazo cumprido</span>
-      </div>
-      <div class="sobre-stat">
-        <strong>R$ 500 M+</strong>
-        <span>em ativos analisados</span>
       </div>
     </div>
   </div>
 </section>
 
 <!-- FAQ -->
-<section id="faq" class="section-pad section-alt">
-  <div class="wrap faq-wrap">
-    <span class="stag">Dúvidas frequentes</span>
-    <h2>Perguntas <em>frequentes</em></h2>
-    <div class="faq-list reveal">
-
-      <details class="faq-item">
-        <summary>Qual o prazo médio para um estudo de viabilidade?</summary>
-        <p>Estudos de viabilidade padrão são entregues em 5 a 10 dias úteis, dependendo da complexidade do empreendimento e da disponibilidade de dados fornecidos pelo cliente.</p>
-      </details>
-
-      <details class="faq-item">
-        <summary>Vocês emitem ART para os projetos?</summary>
-        <p>Sim. Todos os projetos técnicos são acompanhados de ART (Anotação de Responsabilidade Técnica) junto ao CREA-SP, garantindo validade legal e técnica dos documentos.</p>
-      </details>
-
-      <details class="faq-item">
-        <summary>Como funciona o processo de orçamento?</summary>
-        <p>Após um briefing inicial (presencial ou por vídeo), enviamos uma proposta com escopo detalhado, prazo e valor em até 24 horas. Não há cobrança pela consulta inicial.</p>
-      </details>
-
-      <details class="faq-item">
-        <summary>Os apps de ferramentas são gratuitos?</summary>
-        <p>Sim. Os aplicativos disponíveis na seção Ferramentas são de uso gratuito para qualquer pessoa. São uma demonstração das metodologias que aplicamos nos estudos profissionais.</p>
-      </details>
-
-      <details class="faq-item">
-        <summary>Atendem fora de São Paulo?</summary>
-        <p>Estudos de viabilidade, avaliações e consultoria financeira são realizados remotamente em todo o Brasil. Projetos estruturais e acompanhamento de obras são focados na região de São Paulo.</p>
-      </details>
-
+<section id="faq">
+  <div class="wrap">
+    <div class="faq-grid">
+      <div class="faq-st reveal">
+        <span class="stag">Dúvidas Frequentes</span>
+        <h2>Perguntas <em>comuns</em></h2>
+        <p style="color:var(--txt-mut);font-size:.86rem;margin-top:.9rem;font-weight:300;line-height:1.6">Não encontrou o que procurava? Me mande uma mensagem diretamente.</p>
+        <a href="#cta" class="btn-pri" style="margin-top:1.4rem;display:inline-flex">Tirar Dúvida</a>
+      </div>
+      <div class="faq-list reveal">
+        <details open>
+          <summary>Qual é a diferença entre avaliação mercadológica e patrimonial?</summary>
+          <div>A avaliação mercadológica determina o valor de compra e venda do imóvel com base em pesquisa de mercado na região — usada para negociações, inventários e financiamentos. A avaliação patrimonial determina o valor do bem para fins contábeis ou seguros. Ambas são reguladas pela ABNT NBR 14.653.</div>
+        </details>
+        <details>
+          <summary>O laudo de patologia substitui um laudo estrutural completo?</summary>
+          <div>Não necessariamente. O laudo de patologia diagnostica manifestações visíveis e identifica prováveis causas. Quando há suspeita de comprometimento estrutural severo, pode ser necessária uma inspeção mais aprofundada. Na vistoria inicial, indico qual modalidade de laudo você realmente precisa.</div>
+        </details>
+        <details>
+          <summary>Atendo cidades fora de São Luís?</summary>
+          <div>Sim. Serviços realizáveis remotamente — orçamentos, avaliações com pesquisa de mercado digital e consultoria técnica — atendo em todo o Maranhão. Vistorias presenciais são realizadas em São Luís e municípios próximos, com avaliação de deslocamento caso a caso.</div>
+        </details>
+        <details>
+          <summary>O orçamento elaborado é aceito em banco ou prefeitura?</summary>
+          <div>Sim, desde que acompanhado de ART (Anotação de Responsabilidade Técnica) emitida pelo CREA-MA, que formaliza minha responsabilidade técnica sobre o documento. A ART garante a validade perante qualquer instituição pública ou privada.</div>
+        </details>
+        <details>
+          <summary>Os apps de ferramentas são gratuitos?</summary>
+          <div>Sim. Os aplicativos disponíveis na seção Ferramentas são de uso gratuito para qualquer pessoa. São uma demonstração das metodologias que aplicamos nos estudos profissionais — use diretamente no navegador, sem cadastro.</div>
+        </details>
+        <details>
+          <summary>Quanto tempo leva para receber o orçamento ou laudo?</summary>
+          <div>Depende da complexidade. Orçamentos simples: 3 a 5 dias úteis. Avaliações de imóveis: 3 a 7 dias úteis após vistoria. Laudos de patologia: 5 a 8 dias úteis após vistoria. Todos os prazos são informados antes da contratação e respeitados.</div>
+        </details>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- CTA FINAL -->
-<section id="cta" class="section-cta">
-  <div class="wrap cta-wrap reveal">
-    <span class="stag">Próximo passo</span>
-    <h2>Pronto para tomar decisões <em>com segurança técnica</em>?</h2>
-    <p>Fale com a gente e receba uma proposta personalizada em até 24 horas.</p>
-    <div class="cta-btns">
-      <a class="btn btn-gold btn-lg" href="https://wa.me/5511999999999?text=Olá%2C%20gostaria%20de%20solicitar%20um%20orçamento" target="_blank" rel="noopener">
-        Falar no WhatsApp
+<section id="cta">
+  <div class="cta-in">
+    <span class="stag" style="display:block;text-align:center;margin-bottom:.9rem">Pronto para começar?</span>
+    <h2>Solicite seu <em>orçamento</em> hoje.</h2>
+    <p>Descreva o que você precisa e responderei em até 4 horas úteis com orientação técnica e proposta personalizada — sem compromisso.</p>
+    <div class="cta-acts">
+      <a href="https://wa.me/5598XXXXXXXXX?text=Ol%C3%A1+Caio%2C+gostaria+de+solicitar+um+or%C3%A7amento" class="btn-wpp" target="_blank" rel="noopener">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Chamar no WhatsApp
       </a>
-      <a class="btn btn-ghost btn-lg" href="mailto:contato@caiosousa.eng.br">
-        Enviar e-mail
-      </a>
+      <a href="mailto:caio@csengenharia.com.br" class="btn-gh">Enviar E-mail</a>
     </div>
-    <p class="cta-note">Resposta garantida em até 1 dia útil. Sem compromisso.</p>
   </div>
 </section>
 
 <!-- FOOTER -->
-<footer class="footer">
-  <div class="wrap footer-inner">
-    <div class="footer-brand">
-      <div class="logo-box logo-box--footer">
+<footer>
+  <div class="ft-in">
+    <div class="ft-brand">
+      <div class="footer-logo-box">
         <img src="assets/logo.png" alt="CS Engenharia & Avaliações">
       </div>
-      <div>
-        <div class="footer-name">CS Engenharia & Avaliações</div>
-        <div class="footer-tagline">CREA-MA · Engenharia Civil & Avaliações</div>
-      </div>
+      <div class="ft-name">CS Engenharia <span>/ Avaliações · CREA-MA XXXXXXX-D</span></div>
     </div>
-    <nav class="footer-nav" aria-label="Links do rodapé">
+    <div class="ft-lnk">
       <a href="#servicos">Serviços</a>
       <a href="#ferramentas">Ferramentas</a>
       <a href="#portfolio">Portfólio</a>
       <a href="#sobre">Sobre</a>
+      <a href="#faq">FAQ</a>
       <a href="#cta">Contato</a>
-    </nav>
-    <div class="footer-copy">© 2025 Caio Sousa Engenharia. Todos os direitos reservados.</div>
+    </div>
+    <div class="ft-cp">© 2025 CS Engenharia & Avaliações · São Luís — MA</div>
   </div>
 </footer>
 

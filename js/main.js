@@ -1,117 +1,67 @@
-/* ═══════════════════════════════════════
-   TEMA / NAV SCROLL
-═══════════════════════════════════════ */
-(function () {
-  'use strict';
+/* ── Theme ── */
+const root = document.documentElement;
+const tb   = document.getElementById('themeBtn');
+function getSystem(){ return matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light'; }
+function setTheme(t){
+  root.setAttribute('data-theme', t);
+  if (tb) tb.textContent = t === 'dark' ? '☀️' : '🌙';
+  localStorage.setItem('cse-theme', t);
+}
+setTheme(localStorage.getItem('cse-theme') || getSystem());
+if (tb) tb.addEventListener('click', () => {
+  setTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+});
+matchMedia('(prefers-color-scheme:dark)').addEventListener('change', e => {
+  if (!localStorage.getItem('cse-theme')) setTheme(e.matches ? 'dark' : 'light');
+});
 
-  const nav = document.getElementById('nav');
-
-  // Nav scroll state
-  function onScroll() {
-    if (window.scrollY > 40) {
-      nav.classList.add('scrolled');
-    } else {
-      nav.classList.remove('scrolled');
-    }
-  }
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
-
-  /* ═══════════════════════════════════════
-     MENU MOBILE
-  ═══════════════════════════════════════ */
-  const hamburger = document.getElementById('nav-hamburger');
-  const navLinks  = document.getElementById('nav-links');
-  const btnNav    = document.querySelector('.btn-nav');
-
-  if (hamburger && navLinks) {
-    hamburger.addEventListener('click', function () {
-      const isOpen = navLinks.classList.toggle('open');
-      hamburger.classList.toggle('open', isOpen);
-      hamburger.setAttribute('aria-expanded', String(isOpen));
-
-      // Show/hide CTA button inside mobile menu
-      if (btnNav) {
-        btnNav.classList.toggle('open-cta', isOpen);
-      }
-    });
-
-    // Close on link click
-    navLinks.querySelectorAll('a').forEach(function (link) {
-      link.addEventListener('click', function () {
-        navLinks.classList.remove('open');
-        hamburger.classList.remove('open');
-        hamburger.setAttribute('aria-expanded', 'false');
-        if (btnNav) btnNav.classList.remove('open-cta');
-      });
-    });
-
-    // Close on outside click
-    document.addEventListener('click', function (e) {
-      if (!nav.contains(e.target)) {
-        navLinks.classList.remove('open');
-        hamburger.classList.remove('open');
-        hamburger.setAttribute('aria-expanded', 'false');
-        if (btnNav) btnNav.classList.remove('open-cta');
-      }
-    });
-  }
-
-  /* ═══════════════════════════════════════
-     REVEAL ON SCROLL
-  ═══════════════════════════════════════ */
-  const revealEls = document.querySelectorAll('.reveal');
-
-  if ('IntersectionObserver' in window) {
-    const observer = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.12 }
-    );
-    revealEls.forEach(function (el) { observer.observe(el); });
-  } else {
-    // Fallback: show all immediately
-    revealEls.forEach(function (el) { el.classList.add('visible'); });
-  }
-
-  /* ═══════════════════════════════════════
-     ACTIVE NAV LINK (SCROLL SPY)
-  ═══════════════════════════════════════ */
-  const sections = document.querySelectorAll('section[id]');
-  const navAnchors = document.querySelectorAll('.nav-links a[href^="#"]');
-
-  function updateActiveLink() {
-    var scrollY = window.scrollY + 80;
-    var current = '';
-    sections.forEach(function (sec) {
-      if (sec.offsetTop <= scrollY) {
-        current = sec.getAttribute('id');
-      }
-    });
-    navAnchors.forEach(function (a) {
-      a.classList.toggle('active', a.getAttribute('href') === '#' + current);
-    });
-  }
-
-  window.addEventListener('scroll', updateActiveLink, { passive: true });
-  updateActiveLink();
-
-  /* ═══════════════════════════════════════
-     ACESSIBILIDADE — ESC fecha menu
-  ═══════════════════════════════════════ */
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && navLinks && navLinks.classList.contains('open')) {
-      navLinks.classList.remove('open');
-      hamburger.classList.remove('open');
-      hamburger.setAttribute('aria-expanded', 'false');
-      if (btnNav) btnNav.classList.remove('open-cta');
-      hamburger.focus();
+/* ── Menu mobile ── */
+const nav = document.getElementById('nav');
+const ham = document.getElementById('ham');
+const nl  = document.getElementById('navLinks');
+if (ham && nl) {
+  ham.addEventListener('click', () => {
+    const open = nav.classList.toggle('open');
+    ham.textContent = open ? '✕' : '☰';
+  });
+  nl.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    nav.classList.remove('open');
+    ham.textContent = '☰';
+  }));
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && nav.classList.contains('open')) {
+      nav.classList.remove('open');
+      ham.textContent = '☰';
     }
   });
-})();
+}
+
+/* ── Reveal on scroll ── */
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 65);
+      obs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.09 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+/* ── Scroll spy: active nav link ── */
+const sections  = document.querySelectorAll('section[id]');
+const navAnchors = document.querySelectorAll('#navLinks a[href^="#"]');
+function updateSpy() {
+  const y = window.scrollY + 80;
+  let current = '';
+  sections.forEach(s => { if (s.offsetTop <= y) current = s.id; });
+  navAnchors.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + current));
+}
+window.addEventListener('scroll', updateSpy, { passive: true });
+updateSpy();
+
+/* ── Acessibilidade: cards de serviço com teclado ── */
+document.querySelectorAll('.svc-card').forEach(c => {
+  c.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); location.href = '#cta'; }
+  });
+});
