@@ -1,126 +1,13 @@
 'use strict';
 
 // ====================================================
-// CAMADA 1 — TIPOLOGIAS (banco de empreendimentos)
+// ESTADO LOCAL (preenchido via API no boot)
 // ====================================================
-const TIPOLOGIAS = {
-  condhoriz: {
-    label:"Condomínio Horizontal ",
-    cliente:"xxxx", obra:"Condomínio xxxxx", local:"São Luís — MA",
-    cub:2096.27, terreno:1500000, qtdApts:14, areaApt:120, precoMercado:8617,
-    areas:[
-      {nome:"Casas Residenciais",  qtd:14, area:120,    equiv:1.00},
-      {nome:"Portaria",            qtd:1,  area:33.99,  equiv:1.00},
-      {nome:"Estacionamento",      qtd:1,  area:100,    equiv:0.10},
-      {nome:"Lixeira",             qtd:1,  area:31.95,  equiv:0.75},
-      {nome:"Área de Lazer",       qtd:1,  area:444.05, equiv:0.50},
-      {nome:"Reservatório",        qtd:1,  area:64.20,  equiv:0.50},
-    ],
-    indiretos:[
-      {nome:"Adm. central",pct:2.0},{nome:"Adm. local",pct:3.5},
-      {nome:"Mobilização/desmob.",pct:1.5},{nome:"Despesas financeiras",pct:1.5},
-      {nome:"Riscos e eventuais",pct:1.5},{nome:"Mov. de terra",pct:4.0},
-      {nome:"Projetos (arq/est/inst)",pct:4.0},
-    ],
-    impostos:[
-      {nome:"PIS",pct:0.65,tipo:"imposto"},
-      {nome:"COFINS",pct:3.0,tipo:"imposto"},
-      {nome:"ISS",pct:5.0,tipo:"imposto"},
-      {nome:"IRPJ",pct:1.2,tipo:"imposto"},
-      {nome:"CSLL",pct:1.08,tipo:"imposto"},
-      {nome:"Corretagem",pct:6.0,tipo:"corretagem"},
-      {nome:"Lucro requerido",pct:35.0,tipo:"lucro"},
-    ],
-  },
-  vertical: {
-    label:"Edifício Residencial Vertical",
-    cliente:"", obra:"Residencial Alto", local:"São Luís — MA",
-    cub:1866.08, terreno:2000000, qtdApts:32, areaApt:80, precoMercado:8617,
-    areas:[
-      {nome:"Apartamentos (8 pav × 4 apts)",qtd:32,area:80,equiv:1.00},
-      {nome:"Hall/Circulação",qtd:8,area:40,equiv:0.50},
-      {nome:"Garagem coberta",qtd:32,area:12.5,equiv:0.50},
-      {nome:"Área de lazer",qtd:1,area:300,equiv:0.50},
-      {nome:"Reservatório/Casa de máq.",qtd:1,area:60,equiv:0.50},
-    ],
-    indiretos:[
-      {nome:"Adm. central",pct:2.0},{nome:"Adm. local",pct:4.0},
-      {nome:"Mobilização/desmob.",pct:1.0},{nome:"Despesas financeiras",pct:2.0},
-      {nome:"Riscos e eventuais",pct:1.5},{nome:"Projetos",pct:5.0},
-      {nome:"Elevadores (excl. CUB)",pct:3.0},
-    ],
-    impostos:[
-      {nome:"PIS",pct:0.65,tipo:"imposto"},{nome:"COFINS",pct:3.0,tipo:"imposto"},
-      {nome:"ISS",pct:5.0,tipo:"imposto"},{nome:"IRPJ",pct:1.2,tipo:"imposto"},
-      {nome:"CSLL",pct:1.08,tipo:"imposto"},{nome:"Corretagem",pct:6.0,tipo:"corretagem"},
-      {nome:"Lucro requerido",pct:20.0,tipo:"lucro"},
-    ],
-  },
-  mcmv: {
-    label:"MCMV / Habitação de Interesse Social",
-    cliente:"", obra:"Residencial Popular", local:"São Luís — MA",
-    cub:1915.89, terreno:500000, qtdApts:48, areaApt:48, precoMercado:4500,
-    areas:[
-      {nome:"Apartamentos HIS",qtd:48,area:48,equiv:1.00},
-      {nome:"Circulação/Hall",qtd:4,area:30,equiv:0.50},
-      {nome:"Estacionamento descoberto",qtd:24,area:12,equiv:0.10},
-    ],
-    indiretos:[
-      {nome:"Adm. central",pct:1.5},{nome:"Adm. local",pct:3.0},
-      {nome:"Mobilização/desmob.",pct:0.5},{nome:"Riscos e eventuais",pct:1.0},
-      {nome:"Projetos",pct:3.0},
-    ],
-    impostos:[
-      {nome:"PIS (RET MCMV)",pct:0.50,tipo:"imposto"},{nome:"COFINS (RET MCMV)",pct:0.50,tipo:"imposto"},
-      {nome:"ISS",pct:3.0,tipo:"imposto"},{nome:"IRPJ (RET)",pct:0.29,tipo:"imposto"},
-      {nome:"CSLL (RET)",pct:0.26,tipo:"imposto"},{nome:"Corretagem",pct:4.0,tipo:"corretagem"},
-      {nome:"Lucro requerido",pct:12.0,tipo:"lucro"},
-    ],
-  },
-  comercial: {
-    label:"Comercial / Sala e Loja",
-    cliente:"", obra:"Centro Comercial", local:"São Luís — MA",
-    cub:1866.82, terreno:1200000, qtdApts:20, areaApt:60, precoMercado:7000,
-    areas:[
-      {nome:"Salas comerciais",qtd:20,area:60,equiv:1.00},
-      {nome:"Lojas térreas",qtd:4,area:80,equiv:1.00},
-      {nome:"Circulação/Hall",qtd:1,area:200,equiv:0.50},
-      {nome:"Estacionamento",qtd:24,area:13,equiv:0.50},
-    ],
-    indiretos:[
-      {nome:"Adm. central",pct:2.0},{nome:"Adm. local",pct:4.0},
-      {nome:"Despesas financeiras",pct:2.0},{nome:"Riscos e eventuais",pct:1.5},
-      {nome:"Projetos especiais",pct:5.0},
-    ],
-    impostos:[
-      {nome:"PIS",pct:0.65,tipo:"imposto"},{nome:"COFINS",pct:3.0,tipo:"imposto"},
-      {nome:"ISS",pct:5.0,tipo:"imposto"},{nome:"IRPJ",pct:1.2,tipo:"imposto"},
-      {nome:"CSLL",pct:1.08,tipo:"imposto"},{nome:"Corretagem",pct:6.0,tipo:"corretagem"},
-      {nome:"Lucro requerido",pct:25.0,tipo:"lucro"},
-    ],
-  },
-  custom: {
-    label:"Personalizado",
-    cliente:"", obra:"Meu Empreendimento", local:"",
-    cub:2096.27, terreno:500000, qtdApts:10, areaApt:100, precoMercado:8617,
-    areas:[{nome:"Área principal",qtd:10,area:100,equiv:1.00}],
-    indiretos:[
-      {nome:"Adm. central",pct:2.0},{nome:"Adm. local",pct:3.5},
-      {nome:"Projetos",pct:4.0},{nome:"Riscos e eventuais",pct:1.5},
-    ],
-    impostos:[
-      {nome:"PIS",pct:0.65,tipo:"imposto"},{nome:"COFINS",pct:3.0,tipo:"imposto"},
-      {nome:"ISS",pct:5.0,tipo:"imposto"},{nome:"IRPJ",pct:1.2,tipo:"imposto"},
-      {nome:"CSLL",pct:1.08,tipo:"imposto"},{nome:"Corretagem",pct:6.0,tipo:"corretagem"},
-      {nome:"Lucro requerido",pct:20.0,tipo:"lucro"},
-    ],
-  },
-};
-
-// Estado vivo (mutável pelo usuário)
-let AREAS = JSON.parse(JSON.stringify(TIPOLOGIAS.condhoriz.areas));
-let INDIRETOS = JSON.parse(JSON.stringify(TIPOLOGIAS.condhoriz.indiretos));
-let IMPOSTOS  = JSON.parse(JSON.stringify(TIPOLOGIAS.condhoriz.impostos));
+let TIPOLOGIAS = {};
+let AREAS     = [];
+let INDIRETOS = [];
+let IMPOSTOS  = [];
+let _lastR    = null;  // cache do último resultado de /api/calcular
 
 const PIE_COLORS=["#2E6B4F","#C8A96E","#1B3A2D","#8BAF9A","#E8D5B0","#4A8C68","#A0C4AD","#D4B896"];
 
@@ -135,131 +22,52 @@ const $     = id => document.getElementById(id);
 const set   = (id,v)=>{ const e=$(id); if(e) e.textContent=v; };
 const html  = (id,v)=>{ const e=$(id); if(e) e.innerHTML=v; };
 
+// Debounce: evita chamadas repetidas durante edição
+let _debTimer = null;
+function scheduleRender(ms=300){ clearTimeout(_debTimer); _debTimer=setTimeout(render, ms); }
+
 // ====================================================
-// CAMADA 2 — MOTOR FINANCEIRO (puro, sem DOM)
+// CAMADA 2 — CHAMADAS À API (substituem os algoritmos JS)
 // ====================================================
-function calcularViabilidade(dados, areas, indiretos, impostos){
-  const areaBruta  = areas.reduce((s,a)=>s+a.qtd*a.area,0);
-  const areaTotal  = areaBruta;
-  const areaEquiv  = areas.reduce((s,a)=>s+(a.qtd*a.area*a.equiv),0);
-  const areaVend   = dados.qtdApts * dados.areaApt;
-
-  const custoConstrucao = areaEquiv * dados.cub;
-  const pctInd          = indiretos.reduce((s,i)=>s+i.pct,0);
-  const custoInd        = custoConstrucao * pctInd / 100;
-  const custoTotal      = custoConstrucao + custoInd + dados.terreno;
-
-  const impostoItems  = impostos.filter(x=>x.tipo==="imposto");
-  const corretagemItem= impostos.find(x=>x.tipo==="corretagem") || {pct:0};
-  const lucroItem     = impostos.find(x=>x.tipo==="lucro") || {pct:0};
-
-  const pctImp  = impostoItems.reduce((s,i)=>s+i.pct,0);
-  const pctCor  = corretagemItem.pct;
-  const pctLuc  = lucroItem.pct;
-  const deducoes= pctImp + pctCor + pctLuc;
-
-  const vgv        = custoTotal / (1 - deducoes/100);
-  const impostosVal= vgv * pctImp / 100;
-  const comissaoVal= vgv * pctCor / 100;
-  const lucroVal   = vgv * pctLuc / 100;
-  const precoApt   = dados.qtdApts > 0 ? vgv / dados.qtdApts : 0;
-
-  const custoM2  = areaVend > 0 ? custoTotal / areaVend : 0;
-  const vendaM2  = areaVend > 0 ? vgv / areaVend : 0;
-  const margemM2 = vendaM2 - custoM2;
-  const viavel   = margemM2 >= 0;
-  const roi      = custoTotal > 0 ? lucroVal / custoTotal : 0;
-  const margemPct= vgv > 0 ? lucroVal / vgv : 0;
-
-  return {
-    areaBruta,areaTotal,areaEquiv,areaVend,
-    custoConstrucao,pctInd,custoInd,custoTotal,
-    pctImp,pctCor,pctLuc,deducoes,
-    vgv,impostosVal,comissaoVal,lucroVal,precoApt,
-    custoM2,vendaM2,margemM2,viavel,roi,margemPct,
-  };
+async function apiCalc(dados, areas, indiretos, impostos){
+  const res = await fetch('/api/calcular',{
+    method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({dados,areas,indiretos,impostos})
+  });
+  if(!res.ok) throw new Error(await res.text());
+  return res.json();
 }
 
-function calcularCenario(dados,areas,indiretos,impostos,dCub,dVenda,dTerreno){
-  const d2 = {
-    ...dados,
-    cub:     dados.cub * (1 + dCub/100),
-    terreno: dados.terreno * (1 + dTerreno/100),
-  };
-  const r = calcularViabilidade(d2, areas, indiretos, impostos);
-  const vendaAdj = r.vgv * (1 + dVenda/100);
-  return {
-    ...r,
-    vgvAdj:    vendaAdj,
-    lucroAdj:  vendaAdj - r.custoTotal - r.impostosVal - r.comissaoVal,
-    vendaM2Adj: dados.qtdApts*dados.areaApt > 0 ? vendaAdj/(dados.qtdApts*dados.areaApt) : 0,
-    viavel:    (vendaAdj/(dados.qtdApts*dados.areaApt)) >= r.custoM2,
-  };
+async function apiCenarios(dados, areas, indiretos, impostos, cenarios){
+  const res = await fetch('/api/cenarios',{
+    method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({dados,areas,indiretos,impostos,cenarios})
+  });
+  if(!res.ok) throw new Error(await res.text());
+  return res.json();
 }
 
-// TIR por Newton-Raphson
-function calcularTIR(fluxos, maxIter=500, prec=1e-9){
-  let tir = 0.01;
-  for(let i=0;i<maxIter;i++){
-    let f=0, df=0;
-    fluxos.forEach((fc,t)=>{ f+=fc/Math.pow(1+tir,t); df-=t*fc/Math.pow(1+tir,t+1); });
-    const dt = f/df;
-    tir -= dt;
-    if(Math.abs(dt)<prec) return tir;
-  }
-  return null;
+async function apiFluxo(result, prazo, vvPct, finPct, fasesPct, taxaDesc){
+  const res = await fetch('/api/fluxo',{
+    method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({result,prazo,vvPct,finPct,fasesPct,taxaDesc})
+  });
+  if(!res.ok) throw new Error(await res.text());
+  return res.json();
 }
 
-function calcularVPL(fluxos, taxa){
-  return fluxos.reduce((acc,f,t)=> acc + f/Math.pow(1+taxa,t), 0);
+async function apiSensib(dados, areas, indiretos, impostos){
+  const res = await fetch('/api/sensibilidade',{
+    method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({dados,areas,indiretos,impostos})
+  });
+  if(!res.ok) throw new Error(await res.text());
+  return res.json();
 }
 
-// Cronograma físico-financeiro simplificado
-function gerarFluxoCaixa(r, prazo, vv, finPct){
-  const fases = [
-    {nome:"Fundação",       pct:parseFloat($("fc-fund").value)||10, cor:"#1B3A2D"},
-    {nome:"Estrutura",      pct:parseFloat($("fc-est").value)||35,  cor:"#2E6B4F"},
-    {nome:"Alvenaria",      pct:parseFloat($("fc-alv").value)||15,  cor:"#4A8C68"},
-    {nome:"Instalações",    pct:parseFloat($("fc-ins").value)||20,  cor:"#8BAF9A"},
-    {nome:"Acabamento",     pct:parseFloat($("fc-acab").value)||20, cor:"#C8A96E"},
-  ];
-  const totalFasePct = fases.reduce((s,f)=>s+f.pct,0);
-  const custoObra = r.custoConstrucao + r.custoInd;
-  const taxaJuroFin = 0.011; // 1,1% a.m.
-  const finVal = custoObra * finPct/100;
-  const propFase = prazo / totalFasePct;
 
-  let fluxos = [];
-  let vendaAcum = 0;
-  let desembolsoAcum = 0;
-  let jurosAcum = 0;
 
-  for(let m=0;m<prazo;m++){
-    // Desembolso: distribui proporcionalmente nas fases ao longo do prazo
-    const desembolso = (custoObra / prazo);
-    // Terreno: pago no mês 0
-    const terreno = m === 0 ? r.custoTotal - custoObra : 0;
-    // Receita de vendas
-    const receitaMes = Math.min(vv/100 * r.vgv, r.vgv - vendaAcum);
-    vendaAcum += receitaMes;
-    // Juros sobre financiamento
-    const juroMes = (desembolsoAcum * finPct/100) * taxaJuroFin;
-    jurosAcum += juroMes;
-    desembolsoAcum += desembolso;
-    const saida = -(desembolso + terreno + juroMes);
-    const entrada = receitaMes;
-    fluxos.push({mes:m+1, saida, entrada, fc: entrada + saida});
-  }
-  // Meses após obra (vendas remanescentes)
-  while(vendaAcum < r.vgv){
-    const m = fluxos.length + 1;
-    const rec = Math.min(vv/100 * r.vgv, r.vgv - vendaAcum);
-    vendaAcum += rec;
-    fluxos.push({mes:m, saida:0, entrada:rec, fc:rec});
-    if(m > 120) break;
-  }
-  return {fluxos, jurosAcum, fases};
-}
+
 
 // ====================================================
 // CAMADA 3 — INTERFACE (apenas atualiza DOM)
@@ -274,15 +82,20 @@ function getDados(){
   };
 }
 
-function render(){
+async function render(){
   const dados = getDados();
-  const r = calcularViabilidade(dados, AREAS, INDIRETOS, IMPOSTOS);
-  atualizarEntrada(r, dados);
-  atualizarResultado(r, dados);
-  atualizarPDF(r, dados);
-  renderScenarios();
-  renderFluxo();
-  renderSensib();
+  try {
+    const r = await apiCalc(dados, AREAS, INDIRETOS, IMPOSTOS);
+    _lastR = r;
+    atualizarEntrada(r, dados);
+    atualizarResultado(r, dados);
+    atualizarPDF(r, dados);
+    await Promise.all([
+      renderScenarios(dados),
+      renderFluxo(dados, r),
+      renderSensib(dados),
+    ]);
+  } catch(e){ console.error("Erro no cálculo:", e); }
 }
 
 function atualizarEntrada(r, dados){
@@ -356,24 +169,26 @@ function atualizarResultado(r, dados){
   if(roiEl){roiEl.textContent=fmtP(r.roi*100);roiEl.className="metric-val"+(r.roi>0.15?" green":r.roi>0?" gold":" red");}
 }
 
-function renderScenarios(){
-  const dados = getDados();
+async function renderScenarios(dados){
+  if(!dados) dados=getDados();
   const defs = [
-    {id:"sc-opt-body", cls:"opt", label:"⬆ OTIMISTA",
+    {id:"sc-opt-body", cls:"opt",
       dCub:parseFloat($("sc-cub-ot").value)||0,
       dV:  parseFloat($("sc-venda-ot").value)||0,
       dT:  parseFloat($("sc-ter-ot").value)||0},
-    {id:"sc-re-body",  cls:"real",label:"◆ REALISTA",
+    {id:"sc-re-body",  cls:"real",
       dCub:parseFloat($("sc-cub-re").value)||0,
       dV:  parseFloat($("sc-venda-re").value)||0,
       dT:  parseFloat($("sc-ter-re").value)||0},
-    {id:"sc-pe-body",  cls:"pess",label:"⬇ PESSIMISTA",
+    {id:"sc-pe-body",  cls:"pess",
       dCub:parseFloat($("sc-cub-pe").value)||0,
       dV:  parseFloat($("sc-venda-pe").value)||0,
       dT:  parseFloat($("sc-ter-pe").value)||0},
   ];
-  defs.forEach(d=>{
-    const r = calcularCenario(dados,AREAS,INDIRETOS,IMPOSTOS,d.dCub,d.dV,d.dT);
+  const cenarios = defs.map(d=>({dCub:d.dCub, dVenda:d.dV, dTerreno:d.dT}));
+  const resultados = await apiCenarios(dados, AREAS, INDIRETOS, IMPOSTOS, cenarios);
+  defs.forEach((d,i)=>{
+    const r = resultados[i];
     const v = r.viavel ? "✓ Viável" : "✗ Inviável";
     html(d.id,`
       <div class="sc-row"><span class="sl">CUB adotado</span><span class="sv">${fmtP(100+d.dCub)} (${fmtPn(d.dCub)})</span></div>
@@ -391,11 +206,10 @@ function renderScenarios(){
   let pdfSc = "";
   const scLabels = ["OTIMISTA","REALISTA","PESSIMISTA"];
   const scCls   = ["opt","real","pess"];
-  defs.forEach((d,i)=>{
-    const r = calcularCenario(dados,AREAS,INDIRETOS,IMPOSTOS,d.dCub,d.dV,d.dT);
+  resultados.forEach((r,i)=>{
     pdfSc += `<div class="pdf-sc-c ${scCls[i]}">
       <div class="pdf-sc-t">${scLabels[i]}</div>
-      <div class="pdf-sc-r"><span>CUB</span><span>${fmtPn(d.dCub)}</span></div>
+      <div class="pdf-sc-r"><span>CUB</span><span>${fmtPn(defs[i].dCub)}</span></div>
       <div class="pdf-sc-r"><span>VGV</span><span>${fmt(r.vgvAdj||r.vgv)}</span></div>
       <div class="pdf-sc-r"><span>Venda/m²</span><span>${fmt(r.vendaM2Adj||r.vendaM2)}/m²</span></div>
       <div class="pdf-sc-r"><span>Custo/m²</span><span>${fmt(r.custoM2)}/m²</span></div>
@@ -407,22 +221,25 @@ function renderScenarios(){
   html("pdf-sc-cards", pdfSc);
 }
 
-function renderFluxo(){
-  const dados = getDados();
-  const r = calcularViabilidade(dados, AREAS, INDIRETOS, IMPOSTOS);
+async function renderFluxo(dados, r){
+  if(!dados) dados=getDados();
+  if(!r) r=_lastR;
+  if(!r) return;
   const prazo = parseInt($("fc-prazo").value)||18;
   const vv    = parseFloat($("fc-vv").value)||6;
   const tma   = parseFloat($("fc-tma").value)||1.0;
   const finPct= parseFloat($("fc-fin").value)||0;
+  const fasesPct = {
+    fund: parseFloat($("fc-fund").value)||10,
+    est:  parseFloat($("fc-est").value)||35,
+    alv:  parseFloat($("fc-alv").value)||15,
+    ins:  parseFloat($("fc-ins").value)||20,
+    acab: parseFloat($("fc-acab").value)||20,
+  };
 
-  const {fluxos, jurosAcum, fases} = gerarFluxoCaixa(r, prazo, vv, finPct);
-  const fcVals = fluxos.map(f=>f.fc);
-  // Inclui investimento inicial (terreno) como negativo no mês 0
-  const fluxosVPL = [-(dados.terreno), ...fcVals];
-  const tir = calcularTIR(fluxosVPL);
-  const vpl = calcularVPL(fluxosVPL, tma/100);
+  const data = await apiFluxo(r, prazo, vv, finPct, fasesPct, tma/100);
+  const {fluxos, jurosAcum, fases, tir, vpl} = data;
   const tirAnual = tir !== null ? Math.pow(1+tir,12)-1 : null;
-  // Payback: mês em que o fluxo acumulado fica positivo
   let acum = 0, payback = null;
   fluxos.forEach((f,i)=>{ acum+=f.fc; if(payback===null && acum>=0) payback=i+1; });
 
@@ -440,7 +257,6 @@ function renderFluxo(){
   // Cronograma visual
   const faseTotal = fases.reduce((s,f)=>s+f.pct,0)||100;
   let cronoBars = `<div class="crono-bar">`;
-  let faseMeses = 0;
   fases.forEach(f=>{
     const p = f.pct/faseTotal;
     cronoBars += `<div class="crono-seg" style="flex:${p};background:${f.cor};" title="${f.nome}: ${f.pct}%">${p>0.1?f.nome:""}</div>`;
@@ -452,7 +268,7 @@ function renderFluxo(){
   cronoBars += `</div>`;
   html("crono-container", cronoBars);
 
-  // Tabela de fluxo (resumo quinquenal)
+  // Tabela de fluxo
   let tblHtml = `<table class="fc-table"><thead><tr>
     <th style="text-align:left">Mês</th>
     <th>Desembolso (R$)</th><th>Receita (R$)</th><th>FC Mensal (R$)</th><th>FC Acumulado (R$)</th>
@@ -482,47 +298,14 @@ function renderFluxo(){
   html("fc-table-container", tblHtml);
 }
 
-function renderSensib(){
-  const dados = getDados();
-  const variaveis = [
-    {nome:"CUB (custo de construção)", var:"cub"},
-    {nome:"Preço de venda/m² de mercado", var:"preco"},
-    {nome:"Custo do terreno", var:"terreno"},
-    {nome:"% Lucro requerido", var:"lucro"},
-    {nome:"% Corretagem", var:"corretagem"},
-  ];
-  const deltas = [-20,-15,-10,-5,0,5,10,15,20];
+async function renderSensib(dados){
+  if(!dados) dados=getDados();
+  const data = await apiSensib(dados, AREAS, INDIRETOS, IMPOSTOS);
+  const {matriz} = data;
   let html2 = "";
-  variaveis.forEach(v=>{
-    html2 += `<tr><td>${v.nome}</td>`;
-    deltas.forEach(d=>{
-      let r2;
-      if(v.var==="cub"){
-        const d2={...dados,cub:dados.cub*(1+d/100)};
-        r2=calcularViabilidade(d2,AREAS,INDIRETOS,IMPOSTOS);
-      } else if(v.var==="preco"){
-        r2=calcularViabilidade(dados,AREAS,INDIRETOS,IMPOSTOS);
-        // simula mudança no preço de mercado (só afeta a comparação, não o VGV)
-        const vendaRef = dados.precoMercado*(1+d/100);
-        const viav = r2.vendaM2 <= vendaRef;
-        const marg = r2.vendaM2 - r2.custoM2;
-        const cls = viav ? (marg/r2.vendaM2 > 0.05?"cell-pos":"cell-neu") : "cell-neg";
-        html2 += `<td class="${cls}">${fmtP(marg/r2.vendaM2*100)}</td>`;
-        return;
-      } else if(v.var==="terreno"){
-        const d2={...dados,terreno:dados.terreno*(1+d/100)};
-        r2=calcularViabilidade(d2,AREAS,INDIRETOS,IMPOSTOS);
-      } else if(v.var==="lucro"){
-        const imp2=IMPOSTOS.map(x=>x.tipo==="lucro"?{...x,pct:x.pct*(1+d/100)}:x);
-        r2=calcularViabilidade(dados,AREAS,INDIRETOS,imp2);
-      } else if(v.var==="corretagem"){
-        const imp2=IMPOSTOS.map(x=>x.tipo==="corretagem"?{...x,pct:x.pct*(1+d/100)}:x);
-        r2=calcularViabilidade(dados,AREAS,INDIRETOS,imp2);
-      }
-      const marg = r2.margemPct*100;
-      const cls = r2.viavel ? (marg > 5?"cell-pos":"cell-neu") : "cell-neg";
-      html2 += `<td class="${cls}">${fmtP(marg)}</td>`;
-    });
+  matriz.forEach(row=>{
+    html2 += `<tr><td>${row.nome}</td>`;
+    row.celulas.forEach(c=>{ html2 += `<td class="${c.cls}">${fmtP(c.val)}</td>`; });
     html2 += `</tr>`;
   });
   $("sens-tbody").innerHTML = html2;
@@ -640,14 +423,14 @@ function showTab(id){
   $(id).classList.add('active');
   const idx=['tab-entrada','tab-resultado','tab-cenarios','tab-fluxo','tab-sensib','tab-sig'].indexOf(id);
   document.querySelectorAll('.tab-btn')[idx]?.classList.add('active');
-  if(id==='tab-resultado'||id==='tab-cenarios'||id==='tab-fluxo'||id==='tab-sensib') render();
+  if(id==='tab-resultado'||id==='tab-cenarios'||id==='tab-fluxo'||id==='tab-sensib') scheduleRender(0);
 }
 
 function selCUB(el){
   document.querySelectorAll('.cub-opt').forEach(o=>o.classList.remove('sel'));
   el.classList.add('sel');
   $('cub').value = el.dataset.val;
-  render();
+  scheduleRender(0);
 }
 
 function carregarTipologia(key){
@@ -672,7 +455,7 @@ function carregarTipologia(key){
   buildPavTable();
   buildIndGrid();
   buildImpGrid();
-  render();
+  scheduleRender(0);
 }
 
 function resetarTipologia(){
@@ -684,7 +467,7 @@ function resetarTipologia(){
 function buildPavTable(){
   const tb=$("pav-tbody"); tb.innerHTML="";
   AREAS.forEach((a,i)=>{ tb.appendChild(buildPavRow(a,i)); });
-  render();
+  scheduleRender(0);
 }
 
 function buildPavRow(a,i){
@@ -706,7 +489,7 @@ function addPavRow(){
   AREAS.push({nome:"Nova área",qtd:1,area:50,equiv:1.00});
   const i = AREAS.length-1;
   $("pav-tbody").appendChild(buildPavRow(AREAS[i],i));
-  render();
+  scheduleRender(0);
 }
 
 function delArea(i){
@@ -722,7 +505,7 @@ function upArea(el){
   const eq=tot*AREAS[i].equiv;
   const e1=$("pav-tot-"+i); if(e1) e1.textContent=fmtM(tot);
   const e2=$("pav-eq-"+i);  if(e2) e2.textContent=fmtM(eq);
-  render();
+  scheduleRender();
 }
 
 function buildIndGrid(){
@@ -733,7 +516,7 @@ function buildIndGrid(){
     g.appendChild(d);
   });
 }
-function upInd(el){ INDIRETOS[+el.dataset.i].pct=parseFloat(el.value)||0; render(); }
+function upInd(el){ INDIRETOS[+el.dataset.i].pct=parseFloat(el.value)||0; scheduleRender(); }
 
 function buildImpGrid(){
   const g=$("impostos-grid"); g.innerHTML="";
@@ -744,7 +527,7 @@ function buildImpGrid(){
     g.appendChild(d);
   });
 }
-function upImp(el){ IMPOSTOS[+el.dataset.i].pct=parseFloat(el.value)||0; render(); }
+function upImp(el){ IMPOSTOS[+el.dataset.i].pct=parseFloat(el.value)||0; scheduleRender(); }
 
 function drawPie(cId,lId,data,labels,colors,r){
   const cv=$(cId); if(!cv) return;
@@ -779,8 +562,23 @@ function drawPie(cId,lId,data,labels,colors,r){
 // ====================================================
 // BOOT
 // ====================================================
-buildPavTable();
-buildIndGrid();
-buildImpGrid();
-$("sig-data").value = new Date().toISOString().split("T")[0];
-render();
+async function boot(){
+  try {
+    TIPOLOGIAS = await fetch('/api/tipologias').then(r=>r.json());
+    const t = TIPOLOGIAS.condhoriz;
+    AREAS     = JSON.parse(JSON.stringify(t.areas));
+    INDIRETOS = JSON.parse(JSON.stringify(t.indiretos));
+    IMPOSTOS  = JSON.parse(JSON.stringify(t.impostos));
+    $("cub").value          = t.cub;
+    $("terreno").value      = t.terreno;
+    $("qtd-apts").value     = t.qtdApts;
+    $("area-apt").value     = t.areaApt;
+    $("preco-mercado").value = t.precoMercado;
+  } catch(e){ console.error("Falha ao carregar tipologias:", e); }
+  buildPavTable();
+  buildIndGrid();
+  buildImpGrid();
+  $("sig-data").value = new Date().toISOString().split("T")[0];
+  await render();
+}
+boot();
