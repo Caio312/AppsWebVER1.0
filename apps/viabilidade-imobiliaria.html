@@ -304,84 +304,152 @@ img,canvas{max-width:100%;}
 /* =========================================================
    BOTÃO VOLTAR
    ========================================================= */
-.back-btn{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:600;letter-spacing:.06em;color:rgba(255,255,255,.4);text-decoration:none;padding:3px 0;margin-bottom:6px;transition:color .15s;}
-.back-btn:hover{color:var(--gold);}
+.back-btn{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:10px;font-weight:600;letter-spacing:.06em;
+  color:rgba(255,255,255,.4);text-decoration:none;
+  padding:3px 0;margin-bottom:6px;transition:color .15s;
+  -webkit-tap-highlight-color:transparent;
+}
+.back-btn:hover,.back-btn:active{color:var(--gold);}
 .back-btn svg{width:12px;height:12px;stroke:currentColor;fill:none;}
 
 /* =========================================================
-   MOBILE — Melhorias para dispositivos touch
+   MOBILE — Revisão completa de responsividade
    ========================================================= */
 
-/* Norma bar: rolagem horizontal em vez de quebrar linha */
+/* ── Base global mobile ── */
 @media(max-width:768px){
-  .norma-bar{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;gap:12px;}
+  /* Antialias e texto fluido */
+  body{-webkit-font-smoothing:antialiased;}
+
+  /* Padding lateral principal */
+  --px:16px;
+
+  /* ── Norma bar: rolagem horizontal ── */
+  .norma-bar{
+    flex-wrap:nowrap;overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;gap:12px;padding:7px 16px;
+  }
   .norma-bar::-webkit-scrollbar{display:none;}
-  .norma-badge{white-space:nowrap;flex-shrink:0;}
-}
+  .norma-badge{white-space:nowrap;flex-shrink:0;font-size:10px;}
 
-/* Tipologia bar: rolagem horizontal em mobile */
-@media(max-width:768px){
-  .tipologia-bar{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+  /* ── Tipologia bar: rolagem horizontal ── */
+  .tipologia-bar{
+    flex-wrap:nowrap;overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;padding:10px 16px;
+  }
   .tipologia-bar::-webkit-scrollbar{display:none;}
-  .tipologia-btn{flex-shrink:0;}
-  .tipologia-label{flex-shrink:0;}
+  .tipologia-btn,.tipologia-label{flex-shrink:0;}
+  .tipologia-btn{
+    padding:8px 14px;font-size:12px;
+    min-height:40px;-webkit-tap-highlight-color:transparent;
+  }
+
+  /* ── Tab bar: targets maiores ── */
+  .tab-btn{
+    padding:14px 14px;font-size:11px;
+    min-height:48px;-webkit-tap-highlight-color:transparent;
+  }
+
+  /* ── Main padding ── */
+  .main{padding:16px;}
+
+  /* ── Cards: padding menor ── */
+  .card{padding:16px;}
+
+  /* ── Botões ── */
+  .btn{padding:11px 16px;font-size:13px;min-height:44px;-webkit-tap-highlight-color:transparent;}
+  .btn-sm{padding:9px 13px;font-size:12px;min-height:40px;}
+  .add-row-btn{padding:10px 14px;font-size:12px;min-height:40px;-webkit-tap-highlight-color:transparent;}
+
+  /* ── Inputs e selects: font-size 16px previne zoom no iOS ── */
+  .field input,.field select{height:44px;font-size:16px;}
+  .field label{font-size:11px;}
+  .pav-inp{height:36px;font-size:14px;}
+  .header-input{font-size:16px;}
+
+  /* ── Métricas ── */
+  .metric{padding:10px 12px;}
+  .metric-lbl{font-size:9px;}
+
+  /* ── Tabela de áreas ── */
+  .tbl{min-width:460px;font-size:11px;}
+  .tbl th{font-size:8px;}
+
+  /* ── Fluxo de caixa ── */
+  #fc-table-container{max-height:45vh;}
 }
 
-/* Header: empilha verticalmente em telas pequenas */
+/* ── Breakpoint < 640px: header empilhado ── */
 @media(max-width:640px){
-  .header{flex-direction:column;align-items:stretch;gap:0;padding-bottom:12px;}
-  .header-left{padding-bottom:10px;}
+  .header{
+    flex-direction:column;
+    align-items:stretch;
+    gap:0;
+    padding:12px 16px;
+  }
+  .header-left{padding:4px 0 10px;}
+  .header-subline{display:none;} /* oculta subtítulo técnico longo */
+  .header-fields{flex-direction:column;gap:8px;}
+  .header-field{width:100%;}
   .header-right{
     border-left:none;
     border-top:1px solid rgba(255,255,255,.1);
     margin-left:0;
-    padding:12px 0 0 0;
-    justify-content:flex-start;
+    padding:10px 0 0;
+    gap:8px;
   }
-  .header-fields{flex-direction:column;}
-  .header-field{width:100%;}
-  .header-input{font-size:16px;} /* previne zoom no iOS */
+  .header-right .btn{flex:1;justify-content:center;}
 }
 
-/* Inputs com target de toque adequado (mínimo 44px) em mobile */
-@media(max-width:640px){
-  .field input,.field select{
-    height:44px;
-    font-size:16px; /* previne zoom automático no iOS */
-  }
-  .pav-inp{height:38px;font-size:15px;}
-  .btn{padding:12px 18px;font-size:13px;min-height:44px;}
-  .btn-sm{padding:10px 14px;font-size:12px;min-height:40px;}
-  .tipologia-btn{padding:8px 14px;font-size:12px;min-height:40px;}
-  .add-row-btn{padding:10px 16px;font-size:12px;min-height:40px;}
-}
-
-/* Ajuste de grids de métricas em telas muito pequenas */
-@media(max-width:420px){
-  .m2,.m3,.m4,.m5{grid-template-columns:1fr!important;}
-  .kpi-row{grid-template-columns:1fr 1fr!important;}
-  .mrow.m2{grid-template-columns:1fr 1fr;}
-}
-
-/* Ajuste da tabela de áreas em mobile */
+/* ── Breakpoint < 600px: grids de layout ── */
 @media(max-width:600px){
-  .tbl{min-width:480px;}
-  .fc-table-container{max-height:50vh;}
-}
+  /* Stacks de 2 colunas → 1 coluna */
+  .g2{grid-template-columns:1fr!important;}
+  .fg2{grid-template-columns:1fr!important;}
 
-/* Cenários: 1 coluna em mobile */
-@media(max-width:600px){
+  /* Cenários */
   .scenario-grid{grid-template-columns:1fr!important;}
-}
 
-/* Grid de assinaturas: 1 coluna em mobile */
-@media(max-width:480px){
+  /* Assinaturas */
   .sig-grid{grid-template-columns:1fr!important;}
+
+  /* Grid de distribuição de CUB: 2x2 */
+  .cub-grid{grid-template-columns:1fr 1fr!important;}
+
+  /* Cronograma: texto menor */
+  .crono-seg{font-size:8px;}
+
+  /* KPI row: 2 colunas */
+  .kpi-row{grid-template-columns:1fr 1fr!important;}
+
+  /* Métricas: 2 colunas máximo */
+  .m4,.m5{grid-template-columns:1fr 1fr!important;}
+  .m3{grid-template-columns:1fr 1fr!important;}
+
+  /* Preço unitário grande */
+  #s-preco-apt{font-size:clamp(20px,7vw,28px)!important;}
+  #s-preco-apt-sub{font-size:11px!important;}
 }
 
-/* Preço da unidade (número grande) — ajuste em mobile */
-@media(max-width:480px){
-  #s-preco-apt{font-size:clamp(22px,6vw,32px)!important;}
+/* ── Breakpoint < 420px: telas muito pequenas ── */
+@media(max-width:420px){
+  .m2{grid-template-columns:1fr 1fr;}
+  .m3,.m4,.m5{grid-template-columns:1fr 1fr!important;}
+  .kpi-row{grid-template-columns:1fr 1fr!important;}
+  .fg3,.fg4,.fg5{grid-template-columns:1fr!important;}
+
+  /* Tab bar: texto menor */
+  .tab-btn{font-size:10px;padding:12px 10px;}
+
+  /* Norma badge ainda mais compacto */
+  .norma-badge{font-size:9px;}
+
+  /* Card tag menor */
+  .card-tag{font-size:8px;}
 }
 
 /* =========================================================
