@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AppsWeb — Central de Ferramentas</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0F1923;
+    --bg2: #131E2B;
+    --surface: #1A2535;
+    --surface2: #1F2D3F;
+    --surface3: #243347;
+    --accent: #1B3A2D;
+    --accent2: #2E6B4F;
+    --accent3: #4A8C68;
+    --gold: #C8A96E;
+    --gold-light: rgba(200,169,110,0.12);
+    --gold-dark: #A8894E;
+    --text: #E8EDF4;
+    --text2: #8DA0B8;
+    --text3: #4E6680;
+    --border: rgba(255,255,255,0.06);
+    --border2: rgba(255,255,255,0.10);
+    --shadow: 0 4px 24px rgba(0,0,0,0.4);
+    --radius: 16px;
+    --radius-sm: 10px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    background: linear-gradient(135deg, var(--accent) 0%, #0D1F17 100%);
+    border-bottom: 1px solid rgba(200,169,110,0.15);
+    padding: 24px clamp(20px, 5vw, 64px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .header-brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .header-icon {
+    width: 44px;
+    height: 44px;
+    background: var(--gold-light);
+    border: 1.5px solid var(--gold);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+  }
+  .header-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(18px, 3vw, 24px);
+    color: white;
+    line-height: 1.1;
+  }
+  .header-tagline {
+    font-size: 11px;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.08em;
+    margin-top: 2px;
+  }
+  .header-badge {
+    background: var(--gold-light);
+    border: 1px solid rgba(200,169,110,0.3);
+    border-radius: 99px;
+    padding: 6px 14px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--gold);
+    letter-spacing: 0.06em;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    text-align: center;
+    padding: clamp(40px, 6vw, 80px) clamp(20px, 5vw, 64px) clamp(28px, 4vw, 48px);
+    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(44,107,79,0.18) 0%, transparent 70%);
+  }
+  .hero-eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 14px;
+  }
+  .hero-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(28px, 5vw, 48px);
+    color: white;
+    line-height: 1.15;
+    margin-bottom: 14px;
+  }
+  .hero-sub {
+    font-size: clamp(14px, 2vw, 16px);
+    color: var(--text2);
+    max-width: 560px;
+    margin: 0 auto 28px;
+    line-height: 1.6;
+  }
+  .hero-stats {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .hero-stat {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--text2);
+  }
+  .hero-stat-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent3);
+  }
+
+  /* ── SECTION ── */
+  .section {
+    padding: clamp(20px, 4vw, 48px) clamp(20px, 5vw, 64px);
+    flex: 1;
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .section-title {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text3);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-title::before {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: var(--gold);
+    border-radius: 2px;
+  }
+  .app-count {
+    font-size: 11px;
+    color: var(--text3);
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 99px;
+    padding: 4px 10px;
+  }
+
+  /* ── APP GRID ── */
+  .app-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* ── APP CARD ── */
+  .app-card {
+    background: var(--surface);
+    border: 1px solid var(--border2);
+    border-radius: var(--radius);
+    padding: 24px;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .app-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .app-card:hover {
+    border-color: rgba(200,169,110,0.3);
+    background: var(--surface2);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+  }
+  .app-card:hover::before { opacity: 1; }
+
+  .app-card.coming-soon {
+    opacity: 0.5;
+    cursor: default;
+    pointer-events: none;
+  }
+
+  .card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .card-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    flex-shrink: 0;
+  }
+  .card-icon.green  { background: rgba(46,107,79,0.2);  border: 1px solid rgba(46,107,79,0.3); }
+  .card-icon.blue   { background: rgba(50,100,180,0.2); border: 1px solid rgba(50,100,180,0.3); }
+  .card-icon.purple { background: rgba(120,60,180,0.2); border: 1px solid rgba(120,60,180,0.3); }
+  .card-icon.amber  { background: rgba(200,130,40,0.2); border: 1px solid rgba(200,130,40,0.3); }
+  .card-icon.red    { background: rgba(180,50,50,0.2);  border: 1px solid rgba(180,50,50,0.3); }
+
+  .card-badges {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+  }
+  .badge {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 99px;
+  }
+  .badge.live    { background: rgba(46,107,79,0.2);  color: #5DC08E; border: 1px solid rgba(46,107,79,0.4); }
+  .badge.soon    { background: rgba(80,80,80,0.2);   color: var(--text3); border: 1px solid var(--border2); }
+  .badge.new     { background: rgba(200,169,110,0.2); color: var(--gold); border: 1px solid rgba(200,169,110,0.4); }
+  .badge.beta    { background: rgba(50,100,200,0.2); color: #7AACFF; border: 1px solid rgba(50,100,200,0.4); }
+
+  .card-category {
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .card-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(16px, 2.5vw, 18px);
+    color: white;
+    line-height: 1.2;
+    margin-top: 4px;
+  }
+  .card-desc {
+    font-size: 12px;
+    color: var(--text2);
+    line-height: 1.6;
+    flex: 1;
+  }
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .tag {
+    font-size: 10px;
+    color: var(--text3);
+    background: var(--surface3);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 3px 8px;
+  }
+  .card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+  }
+  .card-cta {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--gold);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: gap 0.2s;
+  }
+  .app-card:hover .card-cta { gap: 10px; }
+  .card-cta svg { width: 14px; height: 14px; fill: var(--gold); }
+
+  .card-meta {
+    font-size: 10px;
+    color: var(--text3);
+  }
+
+  /* ── COMING SOON BANNER ── */
+  .soon-section {
+    padding: 0 clamp(20px, 5vw, 64px) clamp(32px, 4vw, 56px);
+  }
+  .soon-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .soon-card {
+    background: var(--surface);
+    border: 1px dashed var(--border2);
+    border-radius: var(--radius-sm);
+    padding: 16px 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .soon-icon {
+    font-size: 20px;
+    opacity: 0.5;
+  }
+  .soon-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text2);
+  }
+  .soon-cat {
+    font-size: 10px;
+    color: var(--text3);
+    margin-top: 2px;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    border-top: 1px solid var(--border);
+    padding: 20px clamp(20px, 5vw, 64px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .footer-text {
+    font-size: 11px;
+    color: var(--text3);
+  }
+  .footer-version {
+    font-size: 10px;
+    color: var(--text3);
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 3px 8px;
+    font-family: monospace;
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-brand">
+    <div class="header-icon">⚡</div>
+    <div>
+      <div class="header-name">AppsWeb</div>
+      <div class="header-tagline">Central de Ferramentas Profissionais</div>
+    </div>
+  </div>
+  <div class="header-badge">VER 1.0</div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">Suite de Aplicativos</div>
+  <h1 class="hero-title">Ferramentas para<br>profissionais de alta performance</h1>
+  <p class="hero-sub">Acesse calculadoras, modelos financeiros e ferramentas analíticas desenvolvidas para resultados reais.</p>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hero-stat-dot"></div>
+      <span>1 app disponível</span>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-dot" style="background:#4E6680"></div>
+      <span>4 em desenvolvimento</span>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-dot" style="background:var(--gold)"></div>
+      <span>100% no browser</span>
+    </div>
+  </div>
+</section>
+
+<!-- APPS DISPONÍVEIS -->
+<section class="section">
+  <div class="section-header" style="max-width:1200px;margin:0 auto 24px;">
+    <div class="section-title">Apps disponíveis</div>
+    <div class="app-count">1 app</div>
+  </div>
+  <div class="app-grid">
+
+    <!-- Viabilidade Imobiliária PRO -->
+    <a class="app-card" href="apps/viabilidade-imobiliaria.html">
+      <div class="card-header">
+        <div class="card-icon green">🏗️</div>
+        <div class="card-badges">
+          <span class="badge live">Live</span>
+          <span class="badge new">Novo</span>
+        </div>
+      </div>
+      <div>
+        <div class="card-category">Incorporação Imobiliária</div>
+        <div class="card-name">Viabilidade Imobiliária PRO</div>
+      </div>
+      <div class="card-desc">
+        Calculadora completa de viabilidade baseada no CUB/Sinduscon. Analise custos, receitas, fluxo de caixa, TIR, VPL e cenários de sensibilidade para empreendimentos residenciais e comerciais.
+      </div>
+      <div class="card-tags">
+        <span class="tag">CUB / Sinduscon</span>
+        <span class="tag">TIR &amp; VPL</span>
+        <span class="tag">Fluxo de Caixa</span>
+        <span class="tag">Cenários</span>
+      </div>
+      <div class="card-footer">
+        <span class="card-cta">
+          Abrir app
+          <svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <span class="card-meta">HTML · Offline</span>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<!-- EM BREVE -->
+<section class="soon-section">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div class="section-title" style="margin-bottom:16px;">Em breve</div>
+    <div class="soon-grid">
+      <div class="soon-card">
+        <div class="soon-icon">📊</div>
+        <div>
+          <div class="soon-name">DRE Gerencial</div>
+          <div class="soon-cat">Contabilidade</div>
+        </div>
+      </div>
+      <div class="soon-card">
+        <div class="soon-icon">💰</div>
+        <div>
+          <div class="soon-name">Simulador Financiamento</div>
+          <div class="soon-cat">Crédito</div>
+        </div>
+      </div>
+      <div class="soon-card">
+        <div class="soon-icon">📐</div>
+        <div>
+          <div class="soon-name">Orçamento de Obra</div>
+          <div class="soon-cat">Construção</div>
+        </div>
+      </div>
+      <div class="soon-card">
+        <div class="soon-icon">🏠</div>
+        <div>
+          <div class="soon-name">Avaliação de Imóveis</div>
+          <div class="soon-cat">Precificação</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <span class="footer-text">AppsWeb — Suite de Ferramentas Profissionais</span>
+  <span class="footer-version">v1.0.0</span>
+</footer>
+
+</body>
+</html>
